@@ -25,13 +25,29 @@
     <!-- Stellar Tab -->
     <mat-tab label="Stellar Key">
       <div class="tab-content">
-        <p class="tab-description">Enter a Stellar public key to import</p>
+        <p class="tab-description">Enter a Stellar key to import</p>
         
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Stellar Public Key</mat-label>
-          <input matInput [(ngModel)]="stellarKey" placeholder="G...">
+          <mat-label>Stellar Key</mat-label>
+          <input matInput [(ngModel)]="stellarKey" 
+                (input)="onStellarKeyInput()" 
+                placeholder="Enter Stellar public or private key">
           <mat-icon matSuffix>star</mat-icon>
+          <mat-hint>{{ stellarKeyType }}</mat-hint>
         </mat-form-field>
+        
+        <div class="key-type-selector">
+          <mat-slide-toggle [(ngModel)]="isStellarPrivateKey" color="primary"
+                          [disabled]="stellarKey && (stellarKeyType === 'Public Key' || stellarKeyType === 'Private Key')">
+            This is a private key
+          </mat-slide-toggle>
+          <div *ngIf="stellarKey && stellarKeyType !== 'Unknown Key Type'" class="key-type-hint" [ngClass]="{'detected': stellarKeyType === 'Public Key' || stellarKeyType === 'Private Key'}">
+            Detected: {{ stellarKeyType }}
+          </div>
+          <div *ngIf="!stellarKey || stellarKeyType === 'Unknown Key Type'" class="key-type-hint">
+            Private keys enable credential signing and can be used to derive the public key
+          </div>
+        </div>
         
         <div class="action-buttons">
           <button mat-button (click)="closeDialog()">Cancel</button>

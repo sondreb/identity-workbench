@@ -58,3 +58,19 @@
 textarea:focus, input:focus {
   box-shadow: 0 0 8px rgba(0, 195, 255, 0.6);
 }
+
+.key-type-selector {
+  margin-bottom: 20px;
+}
+
+.key-type-hint {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  margin-left: 4px;
+}
+
+.key-type-hint.detected {
+  color: var(--success-color);
+  font-weight: 500;
+}

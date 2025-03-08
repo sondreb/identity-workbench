@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { IdentityService } from '../../../services/identity.service';
 
 @Component({
@@ -22,7 +23,8 @@ import { IdentityService } from '../../../services/identity.service';
     MatButtonModule,
     MatTabsModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
   templateUrl: './import-identity-dialog.component.html',
   styleUrls: ['./import-identity-dialog.component.css']
@@ -33,6 +35,8 @@ export class ImportIdentityDialogComponent {
   jsonContent = '';
   privateKey = '';
   privateKeyName = '';
+  isStellarPrivateKey = false;
+  stellarKeyType = 'Unknown Key Type';
 
   constructor(
     public dialogRef: MatDialogRef<ImportIdentityDialogComponent>,
@@ -58,17 +62,17 @@ export class ImportIdentityDialogComponent {
 
   importStellar() {
     if (!this.stellarKey) {
-      this.showError('Please enter a valid Stellar public key');
+      this.showError('Please enter a valid Stellar key');
       return;
     }
 
-    const result = this.identityService.importFromStellarKey(this.stellarKey);
+    const result = this.identityService.importFromStellarKey(this.stellarKey, this.isStellarPrivateKey);
     
     if (result) {
-      this.showSuccess('Stellar key imported successfully');
+      this.showSuccess(`Stellar ${this.isStellarPrivateKey ? 'private' : 'public'} key imported successfully`);
       this.dialogRef.close(true);
     } else {
-      this.showError('Failed to import Stellar key. Please check the format.');
+      this.showError(`Failed to import Stellar ${this.isStellarPrivateKey ? 'private' : 'public'} key. Please check the format.`);
     }
   }
 
@@ -133,6 +137,28 @@ export class ImportIdentityDialogComponent {
     };
     
     reader.readAsText(file);
+  }
+
+  onStellarKeyInput() {
+    const key = this.stellarKey.trim();
+    
+    if (!key) {
+      this.stellarKeyType = 'Unknown Key Type';
+      return;
+    }
+    
+    // Detect key type based on prefix and length
+    // Public keys typically start with 'G' and are 56 characters
+    // Private keys typically start with 'S' and are 56 characters
+    if (key.startsWith('S') && key.length === 56) {
+      this.isStellarPrivateKey = true;
+      this.stellarKeyType = 'Private Key';
+    } else if (key.startsWith('G') && key.length === 56) {
+      this.isStellarPrivateKey = false;
+      this.stellarKeyType = 'Public Key';
+    } else {
+      this.stellarKeyType = 'Invalid Key Format';
+    }
   }
 
   closeDialog() {

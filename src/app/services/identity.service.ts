@@ -3,6 +3,7 @@ import { Identity } from '../models/identity.model';
 import { v4 as uuidv4 } from 'uuid';
 import { StorageService } from './storage.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { DidStellar } from '@sondreb/did-stellar';
 
 @Injectable({
   providedIn: 'root'
@@ -90,38 +91,83 @@ export class IdentityService {
       return null;
     }
 
-    const parts = didString.split(':');
-    if (parts.length < 3) {
+    try {
+      const parts = didString.split(':');
+      if (parts.length < 3) {
+        return null;
+      }
+
+      const method = parts[1];
+      
+      // Handle Stellar DIDs specifically
+      if (method === 'stellar') {
+        const didDocument = DidStellar.resolve(didString);
+        
+        return this.addIdentity({
+          id: didString,
+          method: 'stellar',
+          publicKey: parts[2], // Extract the public key from the DID
+          name: `Imported Stellar DID`,
+          description: `Imported on ${new Date().toLocaleString()}`,
+          didDocument
+        });
+      }
+      
+      // Create a basic identity from the DID string for other methods
+      return this.addIdentity({
+        id: didString,
+        method: method,
+        publicKey: parts.slice(2).join(':'),
+        name: `Imported ${method.toUpperCase()} DID`,
+        description: `Imported on ${new Date().toLocaleString()}`
+      });
+    } catch (error) {
+      console.error('Error importing DID string:', error);
       return null;
     }
-
-    const method = parts[1];
-    
-    // Create a basic identity from the DID string
-    return this.addIdentity({
-      id: didString,
-      method: method,
-      publicKey: parts.slice(2).join(':'),
-      name: `Imported ${method.toUpperCase()} DID`,
-      description: `Imported on ${new Date().toLocaleString()}`
-    });
   }
 
-  importFromStellarKey(publicKey: string): Identity | null {
-    if (!publicKey || publicKey.length < 16) {
+  importFromStellarKey(key: string, isPrivateKey = false): Identity | null {
+    try {
+      if (!key || key.length < 16) {
+        return null;
+      }
+
+      let didDocument;
+      let publicKey;
+      let privateKey;
+      let did;
+      
+      // Handle based on whether this is a private or public key
+      if (isPrivateKey) {
+        const result = DidStellar.fromPrivateKey(key);
+        didDocument = result;
+        did = didDocument.id;
+        // Should the key be formatted as Stellar or not?
+        // publicKey = result.verificationMethod[0].publicKeyMultibase;
+        publicKey = did.split(':')[2];
+        privateKey = key;
+      } else {
+        // This is a public key
+        const result = DidStellar.fromPublicKey(key);
+        didDocument = result;
+        did = didDocument.id;
+        publicKey = key;
+      }
+      
+      return this.addIdentity({
+        id: did,
+        method: 'stellar',
+        publicKey,
+        privateKey,
+        name: `Imported Stellar ${isPrivateKey ? 'Private' : 'Public'} Key`,
+        description: `Imported on ${new Date().toLocaleString()}`,
+        didDocument
+      });
+    } catch (error) {
+      console.error('Error importing Stellar key:', error);
       return null;
     }
-
-    // Create a Stellar DID from the public key
-    const didString = `did:stellar:${publicKey}`;
-    
-    return this.addIdentity({
-      id: didString,
-      method: 'stellar',
-      publicKey: publicKey,
-      name: `Imported Stellar Key`,
-      description: `Imported on ${new Date().toLocaleString()}`
-    });
   }
 
   importFromJsonFile(didDocument: any): Identity | null {
