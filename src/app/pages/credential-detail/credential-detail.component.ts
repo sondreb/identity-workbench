@@ -157,6 +157,40 @@ export class CredentialDetailComponent implements OnInit {
     return Object.keys(obj);
   }
 
+  downloadCredential() {
+    if (!this.credential) return;
+    
+    try {
+      // Create a JSON blob from the raw credential
+      const jsonData = JSON.stringify(this.credential.rawCredential, null, 2);
+      const blob = new Blob([jsonData], { type: 'application/json' });
+      
+      // Create a download link
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      
+      // Set the filename with the credential name or a default
+      const filename = `${this.credential.name || 'credential'}-${this.credential.id}.json`;
+      a.download = filename;
+      
+      // Trigger the download
+      document.body.appendChild(a);
+      a.click();
+      
+      // Clean up
+      window.setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 0);
+      
+      this.showSuccess('Credential download started');
+    } catch (error) {
+      this.showError('Failed to download credential');
+      console.error('Download error:', error);
+    }
+  }
+
   private showSuccess(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,

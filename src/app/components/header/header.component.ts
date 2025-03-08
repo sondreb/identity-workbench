@@ -21,6 +21,11 @@ import { MatButtonModule } from '@angular/material/button';
       <button mat-icon-button aria-label="Help">
         <mat-icon>help_outline</mat-icon>
       </button>
+      @if (showInstallButton) {
+        <button mat-icon-button class="install-button" (click)="installPwa()">
+          <mat-icon>get_app</mat-icon>
+        </button>
+      }
     </mat-toolbar>
   `,
   styles: `
@@ -45,13 +50,23 @@ import { MatButtonModule } from '@angular/material/button';
     mat-icon {
       color: var(--primary-color);
     }
+
+    .install-button {
+      margin-left: 8px;
+    }
   `
 })
 export class HeaderComponent {
   @Input() title = 'Identity Workbench';
+  @Input() showInstallButton = false;
   @Output() toggleSidenavEvent = new EventEmitter<void>();
+  @Output() installPwaEvent = new EventEmitter<void>();
 
   toggleSidenav() {
     this.toggleSidenavEvent.emit();
+  }
+
+  installPwa() {
+    this.installPwaEvent.emit();
   }
 }
