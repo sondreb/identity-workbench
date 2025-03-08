@@ -1,0 +1,103 @@
+<div class="import-dialog-container">
+  <h2 class="dialog-title neon-text">Import Identity</h2>
+  
+  <mat-tab-group dynamicHeight animationDuration="300ms">
+    <!-- DID String Tab -->
+    <mat-tab label="DID String">
+      <div class="tab-content">
+        <p class="tab-description">Enter a DID string to import (e.g., did:key:z6Mk...)</p>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>DID String</mat-label>
+          <input matInput [(ngModel)]="didString" placeholder="did:method:identifier">
+          <mat-icon matSuffix>contact_page</mat-icon>
+        </mat-form-field>
+        
+        <div class="action-buttons">
+          <button mat-button (click)="closeDialog()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="importDID()">
+            <mat-icon>add</mat-icon> Import DID
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    
+    <!-- Stellar Tab -->
+    <mat-tab label="Stellar Key">
+      <div class="tab-content">
+        <p class="tab-description">Enter a Stellar public key to import</p>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Stellar Public Key</mat-label>
+          <input matInput [(ngModel)]="stellarKey" placeholder="G...">
+          <mat-icon matSuffix>star</mat-icon>
+        </mat-form-field>
+        
+        <div class="action-buttons">
+          <button mat-button (click)="closeDialog()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="importStellar()">
+            <mat-icon>add</mat-icon> Import Stellar Key
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    
+    <!-- JSON Tab -->
+    <mat-tab label="JSON File">
+      <div class="tab-content">
+        <p class="tab-description">Import a DID Document from JSON</p>
+        
+        <div class="file-input-wrapper">
+          <button mat-stroked-button color="primary" class="upload-btn">
+            <mat-icon>upload_file</mat-icon> Select JSON File
+          </button>
+          <input type="file" accept=".json" (change)="onFileSelected($event, 'json')">
+        </div>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>JSON Content</mat-label>
+          <textarea matInput [(ngModel)]="jsonContent" rows="8" placeholder="Paste JSON content here..."></textarea>
+        </mat-form-field>
+        
+        <div class="action-buttons">
+          <button mat-button (click)="closeDialog()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="importJSON()">
+            <mat-icon>add</mat-icon> Import JSON
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    
+    <!-- Private Key Tab -->
+    <mat-tab label="Private Key">
+      <div class="tab-content">
+        <p class="tab-description">Import a private key for signing credentials</p>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="privateKeyName" placeholder="Signing Key Name">
+        </mat-form-field>
+        
+        <div class="file-input-wrapper">
+          <button mat-stroked-button color="primary" class="upload-btn">
+            <mat-icon>upload_file</mat-icon> Select Private Key File
+          </button>
+          <input type="file" (change)="onFileSelected($event, 'privateKey')">
+        </div>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Private Key</mat-label>
+          <textarea matInput [(ngModel)]="privateKey" rows="4" placeholder="Paste private key here..."></textarea>
+          <mat-hint>This key will be stored securely and used for signing credentials</mat-hint>
+        </mat-form-field>
+        
+        <div class="action-buttons">
+          <button mat-button (click)="closeDialog()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="importPrivateKey()">
+            <mat-icon>vpn_key</mat-icon> Import Private Key
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,8 +1,19 @@
-<div class="fullscreen-container">
-  <img src="/icons/icon-512x512.png" alt="Identity Workbench Logo" class="logo" />
-  <h1>In development...</h1>
-  <button *ngIf="showInstallButton" (click)="installPwa()" class="install-button">
-    Install App
-  </button>
+<div class="app-container">
+  <app-header [title]="title" (toggleSidenavEvent)="sidenav.toggle()"></app-header>
+  
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="over" class="sidenav">
+      <app-navigation></app-navigation>
+    </mat-sidenav>
+    
+    <mat-sidenav-content class="main-content">
+      <router-outlet></router-outlet>
+      
+      @if (showInstallButton) {
+        <button (click)="installPwa()" class="install-button">
+          <mat-icon>get_app</mat-icon> Install App
+        </button>
+      }
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
-<router-outlet />

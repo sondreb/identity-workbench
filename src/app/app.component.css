@@ -29,18 +29,45 @@
   bottom: 20px;
   right: 20px;
   padding: 12px 24px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  background-color: #121212;
+  color: #00c3ff;
+  border: 1px solid #00c3ff;
   border-radius: 24px;
   font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
   z-index: 1000;
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .install-button:hover {
   transform: scale(1.05);
-  background-color: #0056b3;
+  box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.sidenav-container {
+  flex: 1;
+}
+
+.sidenav {
+  width: 250px;
+  background-color: #1a1a1a;
+  border-right: 1px solid rgba(0, 195, 255, 0.2);
+}
+
+.main-content {
+  padding: 20px;
+  background-color: #121212;
+  min-height: 100%;
 }

@@ -1,0 +1,155 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1 class="neon-text">Settings</h1>
+    <p>Configure your Identity Workbench application</p>
+  </div>
+
+  <div class="settings-container">
+    <!-- Appearance Settings -->
+    <div class="settings-section neon-card">
+      <div class="section-header">
+        <mat-icon>palette</mat-icon>
+        <h2>Appearance</h2>
+      </div>
+
+      <div class="setting-item">
+        <span class="setting-label">Theme</span>
+        <mat-form-field appearance="outline">
+          <mat-label>Select Theme</mat-label>
+          <mat-select [(ngModel)]="settings.appearance.theme">
+            <mat-option value="dark">Dark (Neon)</mat-option>
+            <mat-option value="light" disabled>Light (Coming Soon)</mat-option>
+            <mat-option value="system" disabled>System Default (Coming Soon)</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="setting-item">
+        <span class="setting-label">Accent Color</span>
+        <input type="color" [(ngModel)]="settings.appearance.accentColor" class="color-picker">
+      </div>
+    </div>
+
+    <!-- Privacy Settings -->
+    <div class="settings-section neon-card">
+      <div class="section-header">
+        <mat-icon>shield</mat-icon>
+        <h2>Privacy & Security</h2>
+      </div>
+
+      <div class="setting-item toggle">
+        <div class="setting-info">
+          <span class="setting-label">Store Private Keys</span>
+          <span class="setting-description">Allow storage of private keys for signing operations</span>
+        </div>
+        <mat-slide-toggle [(ngModel)]="settings.privacy.storePrivateKeys" color="primary"></mat-slide-toggle>
+      </div>
+
+      <div class="setting-item toggle">
+        <div class="setting-info">
+          <span class="setting-label">Auto Verify</span>
+          <span class="setting-description">Automatically verify credentials when imported</span>
+        </div>
+        <mat-slide-toggle [(ngModel)]="settings.privacy.autoVerify" color="primary"></mat-slide-toggle>
+      </div>
+    </div>
+
+    <!-- Advanced Settings -->
+    <div class="settings-section neon-card">
+      <div class="section-header">
+        <mat-icon>build</mat-icon>
+        <h2>Advanced</h2>
+      </div>
+
+      <div class="setting-item">
+        <span class="setting-label">DID Resolver Endpoint</span>
+        <mat-form-field appearance="outline">
+          <mat-label>Resolver URL</mat-label>
+          <input matInput [(ngModel)]="settings.advanced.resolverEndpoint">
+        </mat-form-field>
+      </div>
+
+      <div class="setting-item toggle">
+        <div class="setting-info">
+          <span class="setting-label">Debug Mode</span>
+          <span class="setting-description">Enable additional diagnostic information</span>
+        </div>
+        <mat-slide-toggle [(ngModel)]="settings.advanced.enableDebugMode" color="primary"></mat-slide-toggle>
+      </div>
+    </div>
+
+    <!-- Data Management -->
+    <div class="settings-section neon-card">
+      <div class="section-header">
+        <mat-icon>storage</mat-icon>
+        <h2>Data Management</h2>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value">{{ statCount.identities }}</span>
+          <span class="stat-label">Identities</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ statCount.credentials }}</span>
+          <span class="stat-label">Credentials</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ statCount.totalStorage }}</span>
+          <span class="stat-label">Storage Used</span>
+        </div>
+      </div>
+
+      <div class="data-actions">
+        <div class="import-wrapper">
+          <button mat-stroked-button color="primary" class="import-btn">
+            <mat-icon>file_upload</mat-icon> Import Data
+          </button>
+          <input type="file" accept=".json" (change)="importData($event)">
+        </div>
+        <button mat-stroked-button color="primary" (click)="exportAllData()">
+          <mat-icon>file_download</mat-icon> Export Data
+        </button>
+        <button mat-stroked-button color="warn" (click)="clearAllData()">
+          <mat-icon>delete_forever</mat-icon> Clear All Data
+        </button>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="settings-section neon-card">
+      <div class="section-header">
+        <mat-icon>info</mat-icon>
+        <h2>About</h2>
+      </div>
+
+      <div class="about-content">
+        <div class="app-info">
+          <h3>Identity Workbench</h3>
+          <p>Version {{ appVersion }}</p>
+          <p>A modern tool for managing DIDs and Verifiable Credentials</p>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/sondreb/identity-workbench" target="_blank" class="app-link">
+            <mat-icon>code</mat-icon> Source Code
+          </a>
+          <a href="#" target="_blank" class="app-link">
+            <mat-icon>help_outline</mat-icon> Documentation
+          </a>
+          <a href="#" target="_blank" class="app-link">
+            <mat-icon>bug_report</mat-icon> Report Issue
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-actions">
+      <button mat-button color="warn" (click)="resetSettings()">
+        Reset to Default
+      </button>
+      <button mat-raised-button color="primary" (click)="saveSettings()">
+        <mat-icon>save</mat-icon> Save Settings
+      </button>
+    </div>
+  </div>
+</div>

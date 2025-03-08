@@ -1,0 +1,168 @@
+<div class="page-container" *ngIf="identity">
+  <div class="page-header">
+    <a routerLink="/identities" class="back-link">
+      <mat-icon>arrow_back</mat-icon> Back to Identities
+    </a>
+    <div class="header-actions">
+      <button mat-button color="primary" (click)="toggleEditMode()">
+        <mat-icon>{{ isEditMode ? 'close' : 'edit' }}</mat-icon>
+        {{ isEditMode ? 'Cancel' : 'Edit' }}
+      </button>
+      <button mat-button color="warn" (click)="deleteIdentity()">
+        <mat-icon>delete</mat-icon> Delete
+      </button>
+    </div>
+  </div>
+
+  <div class="identity-container">
+    <div class="identity-header">
+      <div class="identity-icon">
+        <mat-icon [ngClass]="'method-' + identity.method">
+          {{ identity.method === 'key' ? 'vpn_key' : 
+             identity.method === 'web' ? 'language' : 
+             identity.method === 'stellar' ? 'star' : 'person' }}
+        </mat-icon>
+      </div>
+      <div class="identity-title">
+        <h1 *ngIf="!isEditMode" class="neon-text">{{ identity.name }}</h1>
+        <mat-form-field *ngIf="isEditMode" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="editedName">
+        </mat-form-field>
+        <div class="identity-id" (click)="copyToClipboard(identity.id)">
+          {{ identity.id }}
+          <mat-icon class="copy-icon">content_copy</mat-icon>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <div class="identity-content">
+      <mat-tab-group dynamicHeight animationDuration="300ms">
+        <!-- Details Tab -->
+        <mat-tab label="Details">
+          <div class="tab-content">
+            <div class="detail-section">
+              <h3>Description</h3>
+              <p *ngIf="!isEditMode" class="description">
+                {{ identity.description || 'No description provided' }}
+              </p>
+              <mat-form-field *ngIf="isEditMode" appearance="outline" class="full-width">
+                <mat-label>Description</mat-label>
+                <textarea matInput [(ngModel)]="editedDescription" rows="3"></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="detail-section">
+              <h3>Method</h3>
+              <p class="method-chip">
+                <span class="neon-text chip">{{ identity.method }}</span>
+              </p>
+            </div>
+
+            <div class="detail-section">
+              <h3>Public Key</h3>
+              <div class="key-container">
+                <div class="key-text">{{ identity.publicKey }}</div>
+                <button mat-icon-button (click)="copyToClipboard(identity.publicKey)">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="detail-section" *ngIf="identity.privateKey">
+              <h3>Private Key</h3>
+              <div class="key-container private">
+                <div class="key-text masked">
+                  <mat-icon class="key-icon">vpn_key</mat-icon>
+                  [Private key available for signing]
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h3>Created</h3>
+              <p>{{ identity.created | date:'medium' }}</p>
+            </div>
+
+            <div class="detail-section">
+              <h3>Last Updated</h3>
+              <p>{{ identity.updated | date:'medium' }}</p>
+            </div>
+
+            <div class="action-buttons" *ngIf="isEditMode">
+              <button mat-raised-button color="primary" (click)="saveChanges()">
+                <mat-icon>save</mat-icon> Save Changes
+              </button>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- DID Document Tab -->
+        <mat-tab label="DID Document">
+          <div class="tab-content">
+            <div class="json-container neon-card">
+              <div class="json-header">
+                <h3>DID Document</h3>
+                <button mat-icon-button (click)="copyToClipboard(jsonView)">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+              <pre class="json-content">{{ jsonView }}</pre>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- Credentials Tab -->
+        <mat-tab label="Credentials">
+          <div class="tab-content">
+            <h3>Related Credentials</h3>
+            
+            <div *ngIf="relatedCredentials.length === 0" class="empty-state">
+              <mat-icon>verified_user</mat-icon>
+              <p>No credentials associated with this identity.</p>
+              <button mat-raised-button color="primary" routerLink="/issue">
+                Issue New Credential
+              </button>
+            </div>
+
+            <div class="credentials-list" *ngIf="relatedCredentials.length > 0">
+              <mat-card class="credential-card neon-card" *ngFor="let credential of relatedCredentials">
+                <mat-card-header>
+                  <div mat-card-avatar class="credential-avatar" 
+                      [ngClass]="{'issued': getRelationshipType(credential) === 'Issued', 
+                                  'received': getRelationshipType(credential) === 'Received'}">
+                    <mat-icon>{{ getRelationshipType(credential) === 'Issued' ? 'send' : 'download' }}</mat-icon>
+                  </div>
+                  <mat-card-title>{{ credential.name }}</mat-card-title>
+                  <mat-card-subtitle>
+                    {{ getRelationshipType(credential) }} · {{ credential.type }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p *ngIf="credential.description">{{ credential.description }}</p>
+                  <p class="credential-date">
+                    {{ credential.issuanceDate | date:'medium' }}
+                  </p>
+                </mat-card-content>
+                <mat-card-actions>
+                  <a mat-button color="primary" [routerLink]="['/credential', credential.id]">VIEW</a>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+
+<div class="not-found" *ngIf="!identity">
+  <mat-icon>error_outline</mat-icon>
+  <h2>Identity Not Found</h2>
+  <p>The requested identity could not be found.</p>
+  <button mat-raised-button color="primary" routerLink="/identities">
+    Back to Identities
+  </button>
+</div>

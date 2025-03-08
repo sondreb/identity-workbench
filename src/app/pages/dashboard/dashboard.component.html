@@ -1,0 +1,63 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1 class="neon-text">Identity Workbench</h1>
+    <p>Your secure workplace for digital identities and credentials</p>
+  </div>
+
+  <div class="stats-container">
+    <mat-card class="stats-card neon-card">
+      <div class="stats-card-content">
+        <div class="stats-info">
+          <h2>Identities</h2>
+          <span class="stats-number neon-text">{{identities.length}}</span>
+        </div>
+        <mat-icon class="stats-icon">person</mat-icon>
+      </div>
+      <div class="card-actions">
+        <a routerLink="/identities" mat-button color="primary">MANAGE</a>
+      </div>
+    </mat-card>
+
+    <mat-card class="stats-card neon-card">
+      <div class="stats-card-content">
+        <div class="stats-info">
+          <h2>Credentials</h2>
+          <span class="stats-number neon-text">{{credentials.length}}</span>
+        </div>
+        <mat-icon class="stats-icon">verified_user</mat-icon>
+      </div>
+      <div class="card-actions">
+        <a routerLink="/credentials" mat-button color="primary">VIEW ALL</a>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="actions-container">
+    <h2>Quick Actions</h2>
+    <div class="actions-grid">
+      <mat-card class="action-card neon-card" routerLink="/identities">
+        <mat-icon>add_circle</mat-icon>
+        <h3>Add Identity</h3>
+        <p>Import or create a new decentralized identity</p>
+      </mat-card>
+
+      <mat-card class="action-card neon-card" routerLink="/issue">
+        <mat-icon>send</mat-icon>
+        <h3>Issue Credential</h3>
+        <p>Create and sign a new verifiable credential</p>
+      </mat-card>
+
+      <mat-card class="action-card neon-card" routerLink="/verify">
+        <mat-icon>check_circle</mat-icon>
+        <h3>Verify Credential</h3>
+        <p>Validate a credential issued to you</p>
+      </mat-card>
+
+      <mat-card class="action-card neon-card" routerLink="/credentials">
+        <mat-icon>list</mat-icon>
+        <h3>View Credentials</h3>
+        <p>Browse all your stored credentials</p>
+      </mat-card>
+    </div>
+  </div>
+</div>
