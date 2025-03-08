@@ -40,8 +40,8 @@ import { StorageService } from '../../services/storage.service';
     }
 
     .light-header {
-      background-color: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 136, 204, 0.2);
+      background-color: #f0f0f0; /* Slightly darker background for better contrast */
+      box-shadow: 0 2px 10px rgba(0, 102, 170, 0.2);
     }
 
     .title {
@@ -49,6 +49,10 @@ import { StorageService } from '../../services/storage.service';
       font-weight: 300;
       letter-spacing: 0.5px;
       font-size: 1.5rem;
+    }
+    
+    .light-header .title {
+      color: #0066aa; /* Ensure title has good contrast in light mode */
     }
 
     .spacer {

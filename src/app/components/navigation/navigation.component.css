@@ -49,7 +49,7 @@
 
 /* Improved contrast for light theme navigation items */
 .light-theme .nav-item {
-  color: #333333;
+  color: #222222; /* Darker text color for better contrast */
 }
 
 .nav-item:hover {
@@ -57,8 +57,8 @@
 }
 
 .light-theme .nav-item:hover {
-  background-color: rgba(0, 136, 204, 0.1);
-  color: #0088cc;
+  background-color: rgba(0, 136, 204, 0.15); /* Increased opacity for better visibility */
+  color: #0066aa; /* Darker shade of blue for better contrast */
 }
 
 .nav-item.active {
@@ -67,14 +67,19 @@
 }
 
 .light-theme .nav-item.active {
-  background-color: rgba(0, 136, 204, 0.15);
-  color: #0088cc;
+  background-color: rgba(0, 136, 204, 0.2); /* Increased opacity */
+  color: #0066aa; /* Darker shade of blue */
   font-weight: 500;
+  border-left: 3px solid #0066aa; /* Darker border for better visibility */
 }
 
 .nav-icon {
   margin-right: 16px;
   color: var(--primary-color);
+}
+
+.light-theme .nav-icon {
+  color: #0066aa; /* Darker icon color for better contrast */
 }
 
 .nav-footer {
@@ -87,7 +92,7 @@
 
 .light-theme .nav-footer {
   border-top: 1px solid rgba(0, 136, 204, 0.1);
-  color: #6c757d;
+  color: #555555; /* Darker footer text for better contrast */
 }
 
 .nav-divider {

@@ -16,14 +16,14 @@
   --card-bg: rgba(30, 30, 30, 0.7);
 }
 
-/* Light theme variables */
+/* Light theme variables - improved contrast */
 .light-theme {
-  --primary-color: #0088cc;
-  --primary-hover: #0099e6;
+  --primary-color: #0066aa; /* Darker blue for better contrast */
+  --primary-hover: #0077cc;
   --background-dark: #f5f5f5;
   --background-light: #ffffff;
-  --text-color: #333333;
-  --text-secondary: #6c757d;
+  --text-color: #222222; /* Darker text for better contrast */
+  --text-secondary: #555555; /* Darker secondary text */
   --error-color: #dc3545;
   --success-color: #28a745;
   --warning-color: #ffc107;
@@ -191,14 +191,14 @@ a:hover {
 
 /* Light theme specific styles for better contrast */
 .light-theme .neon-text {
-  text-shadow: 0 0 3px rgba(0, 136, 204, 0.3);
-  color: #0088cc;
+  text-shadow: 0 0 3px rgba(0, 102, 170, 0.3);
+  color: #0066aa; /* Darker blue */
 }
 
 .light-theme button {
-  color: #0088cc;
-  border-color: #0088cc;
-  box-shadow: 0 0 10px rgba(0, 136, 204, 0.2);
+  color: #0066aa;
+  border-color: #0066aa;
+  box-shadow: 0 0 10px rgba(0, 102, 170, 0.2);
 }
 
 .light-theme button:hover {
