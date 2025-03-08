@@ -15,7 +15,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   template: `
     <div class="nav-header">
       <div class="nav-logo-container">
-        <img src="/icons/icon-144x144.png" alt="Identity Workbench Logo" class="nav-logo"
+        <img src="/icons/icon-152x152.png" alt="Identity Workbench Logo" class="nav-logo"
              (error)="handleImageError($event)">
       </div>
     </div>
