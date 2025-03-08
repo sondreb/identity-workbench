@@ -1,4 +1,4 @@
-import { ApplicationConfig, isDevMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, isDevMode, APP_INITIALIZER, importProvidersFrom, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -17,6 +17,7 @@ export function initializeApp(matIconRegistry: MatIconRegistry, domSanitizer: Do
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideExperimentalZonelessChangeDetection(),
     provideRouter(routes, withViewTransitions()),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
