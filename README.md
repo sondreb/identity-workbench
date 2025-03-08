@@ -32,5 +32,5 @@ The Identity Workbench supports the following DID methods:
 - did:key
 - did:web
 - did:stellar (used by [Montelibero](https://montelibero.org))
-- [did:is](https://did.is) (used by [Liberstad](https://liberstad.com))
+- [did:is](https://did.is) (used by [Liberstad](https://www.liberstad.com))
 
