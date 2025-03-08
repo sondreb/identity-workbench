@@ -1,0 +1,101 @@
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--background-light);
+}
+
+.app-info {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 195, 255, 0.1);
+}
+
+.light-theme .app-info {
+  border-bottom: 1px solid rgba(0, 136, 204, 0.1);
+}
+
+.app-logo {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.app-name {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 300;
+}
+
+.app-version {
+  font-size: 0.8rem;
+  margin: 5px 0 0 0;
+  color: var(--text-secondary);
+}
+
+.nav-links {
+  padding: 10px 0;
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: background-color 0.2s;
+}
+
+/* Improved contrast for light theme navigation items */
+.light-theme .nav-item {
+  color: #333333;
+}
+
+.nav-item:hover {
+  background-color: rgba(0, 195, 255, 0.05);
+}
+
+.light-theme .nav-item:hover {
+  background-color: rgba(0, 136, 204, 0.1);
+  color: #0088cc;
+}
+
+.nav-item.active {
+  background-color: rgba(0, 195, 255, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.light-theme .nav-item.active {
+  background-color: rgba(0, 136, 204, 0.15);
+  color: #0088cc;
+  font-weight: 500;
+}
+
+.nav-icon {
+  margin-right: 16px;
+  color: var(--primary-color);
+}
+
+.nav-footer {
+  padding: 16px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 195, 255, 0.1);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.light-theme .nav-footer {
+  border-top: 1px solid rgba(0, 136, 204, 0.1);
+  color: #6c757d;
+}
+
+.nav-divider {
+  height: 1px;
+  background-color: rgba(0, 195, 255, 0.1);
+  margin: 10px 0;
+}
+
+.light-theme .nav-divider {
+  background-color: rgba(0, 136, 204, 0.1);
+}

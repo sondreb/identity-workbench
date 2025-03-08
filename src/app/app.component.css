@@ -43,17 +43,29 @@
   gap: 8px;
 }
 
+.light-theme .install-button {
+  background-color: #ffffff;
+  color: #0088cc;
+  border: 1px solid #0088cc;
+  box-shadow: 0 0 10px rgba(0, 136, 204, 0.5);
+}
+
 .install-button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
+}
+
+.light-theme .install-button:hover {
+  box-shadow: 0 0 15px rgba(0, 136, 204, 0.8);
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #121212;
-  color: #ffffff;
+  background-color: var(--background-dark);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidenav-container {
@@ -62,12 +74,17 @@
 
 .sidenav {
   width: 250px;
-  background-color: #1a1a1a;
+  background-color: var(--background-light);
   border-right: 1px solid rgba(0, 195, 255, 0.2);
+}
+
+.light-theme .sidenav {
+  border-right: 1px solid rgba(0, 136, 204, 0.2);
 }
 
 .main-content {
   padding: 20px;
-  background-color: #121212;
+  background-color: var(--background-dark);
   min-height: 100%;
+  transition: background-color 0.3s ease;
 }

@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 :root {
+  /* Dark theme (default) */
   --primary-color: #00c3ff;
   --primary-hover: #33cfff;
   --background-dark: #121212;
@@ -15,6 +16,20 @@
   --card-bg: rgba(30, 30, 30, 0.7);
 }
 
+/* Light theme variables */
+.light-theme {
+  --primary-color: #0088cc;
+  --primary-hover: #0099e6;
+  --background-dark: #f5f5f5;
+  --background-light: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #6c757d;
+  --error-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --card-bg: rgba(255, 255, 255, 0.9);
+}
+
 body {
   font-size: 16px;
   margin: 0;
@@ -25,6 +40,7 @@ body {
     "Helvetica Neue", Arial, sans-serif;
   background-color: var(--background-dark);
   color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button {
@@ -171,4 +187,72 @@ a:hover {
 
 .align-center {
   align-items: center;
+}
+
+/* Light theme specific styles for better contrast */
+.light-theme .neon-text {
+  text-shadow: 0 0 3px rgba(0, 136, 204, 0.3);
+  color: #0088cc;
+}
+
+.light-theme button {
+  color: #0088cc;
+  border-color: #0088cc;
+  box-shadow: 0 0 10px rgba(0, 136, 204, 0.2);
+}
+
+.light-theme button:hover {
+  background-color: rgba(0, 136, 204, 0.1);
+  box-shadow: 0 0 15px rgba(0, 136, 204, 0.3);
+}
+
+.light-theme .neon-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 136, 204, 0.1);
+  border: 1px solid rgba(0, 136, 204, 0.1);
+}
+
+.light-theme .neon-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 136, 204, 0.2);
+}
+
+/* Light theme scrollbar */
+.light-theme::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.light-theme::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+}
+
+.light-theme::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Light theme specific Angular Material overrides */
+.light-theme .mat-mdc-raised-button.mat-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.light-theme .mat-mdc-button.mat-primary, 
+.light-theme .mat-mdc-outlined-button.mat-primary {
+  color: var(--primary-color);
+}
+
+.light-theme .mat-mdc-form-field-label {
+  color: var(--text-secondary);
+}
+
+/* Light theme specific Angular Material overrides */
+.light-theme .mat-mdc-raised-button.mat-primary {
+  background-color: var(--primary-color);
+}
+
+.light-theme .mat-mdc-button.mat-primary, 
+.light-theme .mat-mdc-outlined-button.mat-primary {
+  color: var(--primary-color);
+}
+
+.light-theme .mat-mdc-form-field-label {
+  color: var(--text-secondary);
 }
