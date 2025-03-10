@@ -35,7 +35,6 @@ export class ImportCredentialDialogComponent {
   ) {}
 
   importCredential() {
-    debugger;
     if (!this.jsonContent) {
       this.showError('Please enter valid JSON content');
       return;

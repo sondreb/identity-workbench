@@ -29,6 +29,11 @@ import { RouterModule } from '@angular/router';
       <button mat-icon-button aria-label="Help">
         <mat-icon>help_outline</mat-icon>
       </button>
+      @if (updateAvailable) {
+        <button mat-icon-button class="update-button" (click)="updateApp()" aria-label="Update application">
+          <mat-icon>system_update</mat-icon>
+        </button>
+      }
       @if (showInstallButton) {
         <button mat-icon-button class="install-button" (click)="installPwa()">
           <mat-icon>get_app</mat-icon>
@@ -85,13 +90,26 @@ import { RouterModule } from '@angular/router';
     .install-button {
       margin-left: 8px;
     }
+    
+    .update-button {
+      margin-left: 8px;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
   `
 })
 export class HeaderComponent {
   @Input() title = 'Identity Workbench';
   @Input() showInstallButton = false;
+  @Input() updateAvailable = false;
   @Output() toggleSidenavEvent = new EventEmitter<void>();
   @Output() installPwaEvent = new EventEmitter<void>();
+  @Output() updateAppEvent = new EventEmitter<void>();
   currentTheme = 'dark';
 
   constructor(private storageService: StorageService) {
@@ -107,5 +125,11 @@ export class HeaderComponent {
 
   installPwa() {
     this.installPwaEvent.emit();
+  }
+  
+  updateApp() {
+    this.updateAppEvent.emit();
+    // Force page reload when update button is clicked
+    window.location.reload();
   }
 }

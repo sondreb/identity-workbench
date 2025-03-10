@@ -41,6 +41,7 @@ body {
   background-color: var(--background-dark);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
+  overscroll-behavior: contain;
 }
 
 button {

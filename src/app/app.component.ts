@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HeaderComponent } from './components/header/header.component';
 import { StorageService } from './services/storage.service';
+import { PwaService } from './services/pwa.service';
 
 @Component({
   selector: 'app-root',
@@ -34,8 +35,9 @@ export class AppComponent implements OnInit {
   showInstallButton = false;
   title = 'Identity Workbench';
   currentTheme = 'dark';
+  updateAvailable = false;
 
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService, private pwaService: PwaService) {}
 
   ngOnInit() {
     // Listen for theme changes
@@ -55,19 +57,32 @@ export class AppComponent implements OnInit {
       // Show install button
       this.showInstallButton = true;
     });
+
+    // Subscribe to install prompt events
+    this.pwaService.installPromptEvent$.subscribe(canInstall => {
+      this.showInstallButton = canInstall;
+    });
+    
+    // Subscribe to update availability
+    this.pwaService.updateAvailable$.subscribe(hasUpdate => {
+      this.updateAvailable = hasUpdate;
+    });
+    
+    // Check for updates on init
+    this.pwaService.checkForUpdates();
   }
 
-  async installPwa() {
-    if (!this.deferredPrompt) return;
+  // async installPwa() {
+  //   if (!this.deferredPrompt) return;
     
-    this.deferredPrompt.prompt();
-    const { outcome } = await this.deferredPrompt.userChoice;
+  //   this.deferredPrompt.prompt();
+  //   const { outcome } = await this.deferredPrompt.userChoice;
     
-    if (outcome === 'accepted') {
-      this.showInstallButton = false;
-    }
-    this.deferredPrompt = null;
-  }
+  //   if (outcome === 'accepted') {
+  //     this.showInstallButton = false;
+  //   }
+  //   this.deferredPrompt = null;
+  // }
   
   applyTheme(theme: string) {
     this.currentTheme = theme;
@@ -78,5 +93,13 @@ export class AppComponent implements OnInit {
     } else {
       document.body.classList.remove('light-theme');
     }
+  }
+
+  installPwa() {
+    this.pwaService.promptInstall();
+  }
+  
+  updateApp() {
+    this.pwaService.updateApp();
   }
 }

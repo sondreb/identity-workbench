@@ -108,8 +108,6 @@ export class CredentialService {
 
   importCredential(json: any): Credential | null {
     try {
-      debugger; 
-
       const vcData = json.vc;
 
       // Basic validation for VC structure
