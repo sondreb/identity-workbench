@@ -14,6 +14,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { IdentityService } from '../../services/identity.service';
 import { CredentialService } from '../../services/credential.service';
 import { Identity } from '../../models/identity.model';
@@ -39,7 +40,8 @@ import { v4 as uuidv4 } from 'uuid';
     MatStepperModule,
     MatSnackBarModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatAutocompleteModule
   ],
   templateUrl: './issue-credential.component.html',
   styleUrls: ['./issue-credential.component.css']
@@ -47,6 +49,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class IssueCredentialComponent implements OnInit {
   identities: Identity[] = [];
   identitiesWithPrivateKey: Identity[] = [];
+  filteredSubjectOptions: Identity[] = [];
   credentialTypes = CREDENTIAL_TYPES;
   formStep = 0;
 
@@ -81,6 +84,9 @@ export class IssueCredentialComponent implements OnInit {
       if (this.identitiesWithPrivateKey.length > 0) {
         this.selectedIssuer = this.identitiesWithPrivateKey[0].id;
       }
+      
+      // Initialize filtered subject options with all identities
+      this.filteredSubjectOptions = [...this.identities];
     });
   }
 
@@ -214,5 +220,29 @@ export class IssueCredentialComponent implements OnInit {
       duration: 5000,
       panelClass: 'error-snackbar'
     });
+  }
+
+  filterSubjectOptions(event: Event): void {
+    const value = (event.target as HTMLInputElement).value.toLowerCase();
+    
+    if (!value) {
+      this.filteredSubjectOptions = [...this.identities];
+      return;
+    }
+    
+    this.filteredSubjectOptions = this.identities.filter(identity => 
+      identity.id.toLowerCase().includes(value) || 
+      identity.name?.toLowerCase().includes(value)
+    );
+  }
+  
+  selectIdentityAsSubject(identity: Identity): void {
+    this.subjectId = identity.id;
+  }
+
+  displaySubjectFn(id: string): string {
+    if (!id) return '';
+    const identity = this.identities.find(i => i.id === id);
+    return identity ? `${identity.name} (${identity.id})` : id;
   }
 }
