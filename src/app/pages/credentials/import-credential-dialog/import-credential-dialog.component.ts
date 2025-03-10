@@ -35,6 +35,7 @@ export class ImportCredentialDialogComponent {
   ) {}
 
   importCredential() {
+    debugger;
     if (!this.jsonContent) {
       this.showError('Please enter valid JSON content');
       return;
@@ -56,6 +57,7 @@ export class ImportCredentialDialogComponent {
   }
 
   onFileSelected(event: Event) {
+    debugger;
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 

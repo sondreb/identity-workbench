@@ -161,8 +161,14 @@ export class CredentialDetailComponent implements OnInit {
     if (!this.credential) return;
     
     try {
-      // Create a JSON blob from the raw credential
-      const jsonData = JSON.stringify(this.credential.rawCredential, null, 2);
+      const jsonDocument = {
+        vc: this.credential.rawCredential,
+        decoded: this.credential.decodedJwt,
+        jwt: this.credential.jwt
+      };
+
+      const jsonData = JSON.stringify(jsonDocument, null, 2);
+
       const blob = new Blob([jsonData], { type: 'application/json' });
       
       // Create a download link

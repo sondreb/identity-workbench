@@ -58,7 +58,9 @@ export class CredentialService {
       rawCredential: credentialData.rawCredential || {},
       revoked: false,
       name: credentialData.name || `Credential ${this.credentialsSubject.value.length + 1}`,
-      description: credentialData.description || ''
+      description: credentialData.description || '',
+      jwt: credentialData.jwt || '',
+      decodedJwt: credentialData.decodedJwt || null
     };
 
     const updatedCredentials = [...this.credentialsSubject.value, newCredential];
@@ -104,8 +106,12 @@ export class CredentialService {
     }
   }
 
-  importCredential(vcData: any): Credential | null {
+  importCredential(json: any): Credential | null {
     try {
+      debugger; 
+
+      const vcData = json.vc;
+
       // Basic validation for VC structure
       if (!vcData || !vcData.id || !vcData.type || 
           !vcData.issuer || !vcData.credentialSubject) {
@@ -130,7 +136,9 @@ export class CredentialService {
         credentialSubject: vcData.credentialSubject,
         rawCredential: vcData,
         name: `Imported ${Array.isArray(vcData.type) ? vcData.type[1] || 'Credential' : vcData.type}`,
-        description: `Imported on ${new Date().toLocaleString()}`
+        description: `Imported on ${new Date().toLocaleString()}`,
+        jwt: json.jwt,
+        decodedJwt: json.decoded
       });
     } catch (error) {
       console.error('Error importing credential:', error);
