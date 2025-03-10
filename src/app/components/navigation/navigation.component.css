@@ -8,11 +8,11 @@
 .app-info {
   padding: 16px;
   text-align: center;
-  border-bottom: 1px solid rgba(0, 195, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .light-theme .app-info {
-  border-bottom: 1px solid rgba(0, 136, 204, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .app-logo {
@@ -24,7 +24,7 @@
 .app-name {
   font-size: 1.2rem;
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .app-version {
@@ -47,30 +47,29 @@
   transition: background-color 0.2s;
 }
 
-/* Improved contrast for light theme navigation items */
 .light-theme .nav-item {
-  color: #222222; /* Darker text color for better contrast */
+  color: #323130;
 }
 
 .nav-item:hover {
-  background-color: rgba(0, 195, 255, 0.05);
+  background-color: rgba(0, 120, 212, 0.05);
 }
 
 .light-theme .nav-item:hover {
-  background-color: rgba(0, 136, 204, 0.15); /* Increased opacity for better visibility */
-  color: #0066aa; /* Darker shade of blue for better contrast */
+  background-color: rgba(0, 120, 212, 0.05);
+  color: var(--primary-color);
 }
 
 .nav-item.active {
-  background-color: rgba(0, 195, 255, 0.1);
+  background-color: rgba(0, 120, 212, 0.1);
   border-left: 3px solid var(--primary-color);
 }
 
 .light-theme .nav-item.active {
-  background-color: rgba(0, 136, 204, 0.2); /* Increased opacity */
-  color: #0066aa; /* Darker shade of blue */
+  background-color: rgba(0, 120, 212, 0.1);
+  color: var(--primary-color);
   font-weight: 500;
-  border-left: 3px solid #0066aa; /* Darker border for better visibility */
+  border-left: 3px solid var(--primary-color);
 }
 
 .nav-icon {
@@ -78,29 +77,16 @@
   color: var(--primary-color);
 }
 
-.light-theme .nav-icon {
-  color: #0066aa; /* Darker icon color for better contrast */
-}
-
 .nav-footer {
   padding: 16px;
   text-align: center;
-  border-top: 1px solid rgba(0, 195, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
-.light-theme .nav-footer {
-  border-top: 1px solid rgba(0, 136, 204, 0.1);
-  color: #555555; /* Darker footer text for better contrast */
-}
-
 .nav-divider {
   height: 1px;
-  background-color: rgba(0, 195, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   margin: 10px 0;
-}
-
-.light-theme .nav-divider {
-  background-color: rgba(0, 136, 204, 0.1);
 }

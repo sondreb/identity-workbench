@@ -1,33 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 :root {
   /* Dark theme (default) */
-  --primary-color: #00c3ff;
-  --primary-hover: #33cfff;
-  --background-dark: #121212;
-  --background-light: #1e1e1e;
+  --primary-color: #0078d4; /* Azure blue */
+  --primary-hover: #106ebe;
+  --background-dark: #1f1f1f;
+  --background-light: #2b2b2b;
   --text-color: #ffffff;
-  --text-secondary: #b0b0b0;
-  --error-color: #ff4081;
-  --success-color: #00e676;
-  --warning-color: #ffb300;
-  --card-bg: rgba(30, 30, 30, 0.7);
+  --text-secondary: #cccccc;
+  --error-color: #d13438;
+  --success-color: #107c10;
+  --warning-color: #ffaa44;
+  --card-bg: rgba(43, 43, 43, 0.95);
 }
 
-/* Light theme variables - improved contrast */
+/* Light theme variables - professional look */
 .light-theme {
-  --primary-color: #0066aa; /* Darker blue for better contrast */
-  --primary-hover: #0077cc;
-  --background-dark: #f5f5f5;
+  --primary-color: #0078d4; /* Azure blue */
+  --primary-hover: #106ebe;
+  --background-dark: #f3f2f1;
   --background-light: #ffffff;
-  --text-color: #222222; /* Darker text for better contrast */
-  --text-secondary: #555555; /* Darker secondary text */
-  --error-color: #dc3545;
-  --success-color: #28a745;
-  --warning-color: #ffc107;
-  --card-bg: rgba(255, 255, 255, 0.9);
+  --text-color: #323130;
+  --text-secondary: #605e5c;
+  --error-color: #a4262c;
+  --success-color: #107c10;
+  --warning-color: #ca5010;
+  --card-bg: rgba(255, 255, 255, 0.95);
 }
 
 body {
@@ -36,7 +36,7 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+  font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, system-ui,
     "Helvetica Neue", Arial, sans-serif;
   background-color: var(--background-dark);
   color: var(--text-color);
@@ -52,53 +52,48 @@ button {
   border: 1px solid var(--primary-color);
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, 
+  font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, system-ui, 
     "Helvetica Neue", Arial, sans-serif;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 195, 255, 0.3);
 }
 
 button:hover {
-  background-color: rgba(0, 195, 255, 0.1);
-  box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
+  background-color: rgba(0, 120, 212, 0.1);
 }
 
 button:active {
-  transform: translateY(2px);
+  transform: translateY(1px);
 }
 
 button.primary {
   background-color: var(--primary-color);
-  color: #000;
+  color: #fff;
 }
 
 button.primary:hover {
   background-color: var(--primary-hover);
 }
 
-.neon-card {
+.card {
   background-color: var(--card-bg);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 195, 255, 0.2);
-  border: 1px solid rgba(0, 195, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
   transition: all 0.3s ease;
 }
 
-.neon-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25), 0 0 20px rgba(0, 195, 255, 0.3);
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
 }
 
-.neon-text {
+.primary-text {
   color: var(--primary-color);
-  text-shadow: 0 0 5px rgba(0, 195, 255, 0.5);
 }
 
-.neon-border {
+.border {
   border: 1px solid var(--primary-color);
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 195, 255, 0.3);
+  border-radius: 2px;
 }
 
 .mat-form-field {
@@ -108,7 +103,7 @@ button.primary:hover {
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-color);
   margin-top: 0;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 h1 {
@@ -128,12 +123,12 @@ a {
 }
 
 a:hover {
-  text-shadow: 0 0 8px rgba(0, 195, 255, 0.8);
+  text-decoration: underline;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -141,29 +136,12 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 5px;
+  background: #555;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
-}
-
-/* Animations */
-@keyframes neon-pulse {
-  0% {
-    box-shadow: 0 0 5px rgba(0, 195, 255, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(0, 195, 255, 0.5);
-  }
-}
-
-.neon-pulse {
-  animation: neon-pulse 2s infinite;
+  background: #666;
 }
 
 .page-container {
@@ -190,33 +168,7 @@ a:hover {
   align-items: center;
 }
 
-/* Light theme specific styles for better contrast */
-.light-theme .neon-text {
-  text-shadow: 0 0 3px rgba(0, 102, 170, 0.3);
-  color: #0066aa; /* Darker blue */
-}
-
-.light-theme button {
-  color: #0066aa;
-  border-color: #0066aa;
-  box-shadow: 0 0 10px rgba(0, 102, 170, 0.2);
-}
-
-.light-theme button:hover {
-  background-color: rgba(0, 136, 204, 0.1);
-  box-shadow: 0 0 15px rgba(0, 136, 204, 0.3);
-}
-
-.light-theme .neon-card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 136, 204, 0.1);
-  border: 1px solid rgba(0, 136, 204, 0.1);
-}
-
-.light-theme .neon-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 136, 204, 0.2);
-}
-
-/* Light theme scrollbar */
+/* Light theme specific scrollbar */
 .light-theme::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
@@ -227,21 +179,6 @@ a:hover {
 
 .light-theme::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
-}
-
-/* Light theme specific Angular Material overrides */
-.light-theme .mat-mdc-raised-button.mat-primary {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.light-theme .mat-mdc-button.mat-primary, 
-.light-theme .mat-mdc-outlined-button.mat-primary {
-  color: var(--primary-color);
-}
-
-.light-theme .mat-mdc-form-field-label {
-  color: var(--text-secondary);
 }
 
 /* Light theme specific Angular Material overrides */

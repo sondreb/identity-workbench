@@ -23,7 +23,7 @@ import { RouterModule } from '@angular/router';
       </button>
       <a [routerLink]="['/']" class="title-container">
         <img src="/icons/icon-152x152.png" alt="Identity Workbench Logo" class="toolbar-logo">
-        <span class="title neon-text">{{title}}</span>
+        <span class="title">{{title}}</span>
       </a>
       <span class="spacer"></span>
       <button mat-icon-button aria-label="Help">
@@ -56,51 +56,51 @@ import { RouterModule } from '@angular/router';
     margin-right: 8px;
   }
 
-    .header {
-      background-color: #1a1a1a;
-      box-shadow: 0 2px 10px rgba(0, 195, 255, 0.2);
-      z-index: 100;
-      position: relative;
-    }
+  .header {
+    background-color: #2b2b2b;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    position: relative;
+  }
 
-    .light-header {
-      background-color: #f0f0f0; /* Slightly darker background for better contrast */
-      box-shadow: 0 2px 10px rgba(0, 102, 170, 0.2);
-    }
+  .light-header {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
 
-    .title {
-      font-weight: 300;
-      letter-spacing: 0.5px;
-      font-size: 1.5rem;
-      color: inherit;
-    }
+  .title {
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    font-size: 1.5rem;
+    color: white;
+  }
 
-    .light-header .title {
-      color: #0066aa; /* Ensure title has good contrast in light mode */
-    }
+  .light-header .title {
+    color: var(--primary-color);
+  }
 
-    .spacer {
-      flex: 1 1 auto;
-    }
+  .spacer {
+    flex: 1 1 auto;
+  }
 
-    mat-icon {
-      color: var(--primary-color);
-    }
+  mat-icon {
+    color: var(--primary-color);
+  }
 
-    .install-button {
-      margin-left: 8px;
-    }
+  .install-button {
+    margin-left: 8px;
+  }
     
-    .update-button {
-      margin-left: 8px;
-      animation: pulse 1.5s infinite;
-    }
+  .update-button {
+    margin-left: 8px;
+    animation: update-pulse 2s infinite;
+  }
     
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+  @keyframes update-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
   `
 })
 export class HeaderComponent {
@@ -129,7 +129,6 @@ export class HeaderComponent {
   
   updateApp() {
     this.updateAppEvent.emit();
-    // Force page reload when update button is clicked
     window.location.reload();
   }
 }

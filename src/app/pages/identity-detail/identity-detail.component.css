@@ -18,9 +18,8 @@
 
 .identity-container {
   background-color: var(--card-bg);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 195, 255, 0.2);
-  border: 1px solid rgba(0, 195, 255, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
   overflow: hidden;
 }
 
@@ -38,7 +37,7 @@
   height: 60px;
   border-radius: 50%;
   margin-right: 20px;
-  background-color: rgba(0, 195, 255, 0.1);
+  background-color: rgba(0, 120, 212, 0.1);
 }
 
 .identity-icon mat-icon {
@@ -49,15 +48,15 @@
 }
 
 .method-key {
-  color: #00c3ff;
+  color: var(--primary-color);
 }
 
 .method-web {
-  color: #00e676;
+  color: var(--success-color);
 }
 
 .method-stellar {
-  color: #ffb300;
+  color: var(--warning-color);
 }
 
 .identity-title {
@@ -97,7 +96,7 @@
 
 .divider {
   margin: 0;
-  border-top-color: rgba(0, 195, 255, 0.1);
+  border-top-color: rgba(0, 0, 0, 0.12);
 }
 
 .identity-content {
@@ -135,14 +134,14 @@
 .chip {
   padding: 4px 10px;
   border-radius: 16px;
-  background-color: rgba(0, 195, 255, 0.1);
+  background-color: rgba(0, 120, 212, 0.1);
   font-size: 0.9rem;
 }
 
 .key-container {
   display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   padding: 10px;
   font-family: monospace;
@@ -151,8 +150,8 @@
 }
 
 .key-container.private {
-  background-color: rgba(0, 195, 255, 0.05);
-  border: 1px dashed rgba(0, 195, 255, 0.2);
+  background-color: rgba(0, 120, 212, 0.05);
+  border: 1px dashed rgba(0, 120, 212, 0.3);
 }
 
 .key-text {
@@ -194,8 +193,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  background-color: rgba(0, 195, 255, 0.05);
-  border-bottom: 1px solid rgba(0, 195, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .json-header h3 {

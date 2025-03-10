@@ -51,7 +51,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     .nav-header {
       padding: 24px 16px;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.1);
     }
     
     .nav-logo-container {
@@ -62,14 +62,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       height: 80px;
       margin: 0 auto;
       border-radius: 50%;
-      box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
-      background-color: #121212;
+      background-color: #f8f8f8;
       overflow: hidden;
+      border: 1px solid #e0e0e0;
     }
     
     .nav-logo {
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
     }
     
     .nav-icon-fallback {
@@ -89,8 +89,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     }
     
     .nav-list a:hover {
-      background-color: rgba(0, 195, 255, 0.1);
-      border-left: 3px solid rgba(0, 195, 255, 0.5);
+      background-color: rgba(0, 120, 212, 0.05);
     }
     
     .nav-list a mat-icon {
@@ -99,13 +98,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     }
     
     .active-link {
-      background-color: rgba(0, 195, 255, 0.15) !important;
+      background-color: rgba(0, 120, 212, 0.1) !important;
       border-left: 3px solid var(--primary-color) !important;
     }
     
     .nav-divider {
       margin: 8px 0;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(0, 0, 0, 0.1);
     }
   `
 })

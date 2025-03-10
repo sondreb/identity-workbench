@@ -6,6 +6,7 @@
 .dialog-title {
   text-align: center;
   margin-bottom: 20px;
+  color: var(--primary-color);
 }
 
 .tab-content {
@@ -56,7 +57,8 @@
 
 /* Neon effect for focused textarea */
 textarea:focus, input:focus {
-  box-shadow: 0 0 8px rgba(0, 195, 255, 0.6);
+  outline: 1px solid var(--primary-color);
+  box-shadow: none;
 }
 
 .key-type-selector {
