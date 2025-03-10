@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { StorageService } from './storage.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DidStellar } from '@sondreb/did-stellar';
+import is from '@blockcore/did-resolver';
+import { Resolver } from 'did-resolver';
 
 @Injectable({
   providedIn: 'root'
@@ -85,7 +87,9 @@ export class IdentityService {
     this.saveIdentities(updatedIdentities);
   }
 
-  importFromDIDString(didString: string): Identity | null {
+  async importFromDIDString(didString: string): Promise<Identity | null> {
+    debugger;
+    
     // Basic validation
     if (!didString.startsWith('did:')) {
       return null;
@@ -101,13 +105,29 @@ export class IdentityService {
       
       // Handle Stellar DIDs specifically
       if (method === 'stellar') {
-        const didDocument = DidStellar.resolve(didString);
+        const didResolution = DidStellar.resolve(didString);
+        const didDocument = didResolution.didDocument;
         
         return this.addIdentity({
           id: didString,
           method: 'stellar',
           publicKey: parts[2], // Extract the public key from the DID
           name: `Imported Stellar DID`,
+          description: `Imported on ${new Date().toLocaleString()}`,
+          didDocument
+        });
+      }
+
+      if (method === 'is') {
+        const resolver = new Resolver(is.getResolver());
+        const didResolution = await resolver.resolve(didString);
+        const didDocument = didResolution.didDocument
+        
+        return this.addIdentity({
+          id: didString,
+          method: 'is',
+          publicKey: parts[2], // Extract the public key from the DID
+          name: `Imported FreeID`,
           description: `Imported on ${new Date().toLocaleString()}`,
           didDocument
         });

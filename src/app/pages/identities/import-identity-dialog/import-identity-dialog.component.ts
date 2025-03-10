@@ -37,6 +37,11 @@ export class ImportIdentityDialogComponent {
   privateKeyName = '';
   isStellarPrivateKey = false;
   stellarKeyType = 'Unknown Key Type';
+  
+  // New FreeID properties
+  freeIdDid = '';
+  freeIdPrivateKey = '';
+  freeIdImportType: 'did' | 'privateKey' = 'did';
 
   constructor(
     public dialogRef: MatDialogRef<ImportIdentityDialogComponent>,
@@ -44,13 +49,15 @@ export class ImportIdentityDialogComponent {
     private snackBar: MatSnackBar
   ) {}
 
-  importDID() {
+  async importDID() {
     if (!this.didString) {
       this.showError('Please enter a valid DID');
       return;
     }
 
-    const result = this.identityService.importFromDIDString(this.didString);
+    const result = await this.identityService.importFromDIDString(this.didString);
+
+    console.log('Result:', result);
     
     if (result) {
       this.showSuccess('DID imported successfully');
@@ -120,6 +127,51 @@ export class ImportIdentityDialogComponent {
       this.showError('Failed to import private key');
     }
   }
+
+  // async importFreeId() {
+  //   if (this.freeIdImportType === 'did') {
+  //     if (!this.freeIdDid || !this.freeIdDid.startsWith('did:is:')) {
+  //       this.showError('Please enter a valid FreeID DID (did:is:...)');
+  //       return;
+  //     }
+      
+  //     const result = await this.identityService.importFromDIDString(this.freeIdDid);
+      
+  //     if (result) {
+  //       this.showSuccess('FreeID DID imported successfully');
+  //       this.dialogRef.close(true);
+  //     } else {
+  //       this.showError('Failed to import FreeID DID. Please check the format.');
+  //     }
+  //   } else {
+  //     // Import using private key
+  //     if (!this.freeIdPrivateKey) {
+  //       this.showError('Please enter a valid FreeID private key');
+  //       return;
+  //     }
+      
+  //     try {
+  //       // In a real implementation, we'd use the private key to generate the did:is identifier
+  //       // For demo purposes, we'll create a simple did:is entry
+  //       const newIdentity = this.identityService.addIdentity({
+  //         method: 'is',
+  //         publicKey: 'generated-from-freeid-private-key',
+  //         privateKey: this.freeIdPrivateKey,
+  //         name: 'FreeID Account',
+  //         description: 'FreeID imported from private key'
+  //       });
+
+  //       if (newIdentity) {
+  //         this.showSuccess('FreeID private key imported successfully');
+  //         this.dialogRef.close(true);
+  //       } else {
+  //         this.showError('Failed to import FreeID private key');
+  //       }
+  //     } catch (error) {
+  //       this.showError('Invalid FreeID private key format');
+  //     }
+  //   }
+  // }
 
   onFileSelected(event: Event, type: string) {
     const file = (event.target as HTMLInputElement).files?.[0];

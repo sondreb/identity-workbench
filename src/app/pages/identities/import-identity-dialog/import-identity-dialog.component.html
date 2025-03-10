@@ -5,7 +5,9 @@
     <!-- DID String Tab -->
     <mat-tab label="DID String">
       <div class="tab-content">
-        <p class="tab-description">Enter a DID string to import (e.g., did:key:z6Mk...)</p>
+        <p class="tab-description">Supported methods: DID Key (did:key), FreeID (did:is), DID Stellar (did:stellar)<br><br>
+          Enter a DID identifier to import (e.g., did:key:z6Mk..., did:stellar:SOZ..., did:is:0f254...)
+        </p>
         
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>DID String</mat-label>
@@ -115,5 +117,46 @@
         </div>
       </div>
     </mat-tab>
+    
+    <!-- New FreeID Tab -->
+    <!-- <mat-tab label="FreeID">
+      <div class="tab-content">
+        <p class="tab-description">Import a FreeID (did:is) identity</p>
+        
+        <div class="import-options">
+          <mat-slide-toggle [(ngModel)]="freeIdImportType" 
+                           [checked]="freeIdImportType === 'privateKey'"
+                           (change)="freeIdImportType = $event.checked ? 'privateKey' : 'did'" 
+                           color="primary">
+            Import using private key
+          </mat-slide-toggle>
+        </div>
+        
+        <ng-container *ngIf="freeIdImportType === 'did'">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>FreeID DID</mat-label>
+            <input matInput [(ngModel)]="freeIdDid" placeholder="did:is:...">
+            <mat-icon matSuffix>contact_page</mat-icon>
+            <mat-hint>Enter your did:is identifier</mat-hint>
+          </mat-form-field>
+        </ng-container>
+        
+        <ng-container *ngIf="freeIdImportType === 'privateKey'">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>FreeID Private Key</mat-label>
+            <textarea matInput [(ngModel)]="freeIdPrivateKey" rows="4" 
+                     placeholder="Paste your FreeID private key here"></textarea>
+            <mat-hint>Your did:is identifier will be derived from this private key</mat-hint>
+          </mat-form-field>
+        </ng-container>
+        
+        <div class="action-buttons">
+          <button mat-button (click)="closeDialog()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="importFreeId()">
+            <mat-icon>add</mat-icon> Import FreeID
+          </button>
+        </div>
+      </div>
+    </mat-tab> -->
   </mat-tab-group>
 </div>

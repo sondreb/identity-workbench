@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "^19.2.1",
     "@angular/router": "^19.2.1",
     "@angular/service-worker": "^19.2.1",
+    "@blockcore/did-resolver": "^0.0.4",
+    "@blockcore/identity": "^0.0.12",
     "@sondreb/did-stellar": "^0.0.3",
     "did-jwt": "^7.4.4",
     "did-jwt-vc": "^3.2.15",
