@@ -6,7 +6,7 @@ import { AppSettings, ThemeSettings, PrivacySettings, AdvancedSettings } from '.
   providedIn: 'root'
 })
 export class StorageService {
-  private readonly SETTINGS_KEY = 'app_settings';
+  private readonly SETTINGS_KEY = 'identity-workbench-settings';
   
   private themeChangeSubject = new BehaviorSubject<string>('dark');
   public themeChange$ = this.themeChangeSubject.asObservable();

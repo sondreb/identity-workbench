@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { StorageService } from './storage.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DidStellar } from '@sondreb/did-stellar';
+import { DidKey } from '@sondreb/did-key';
 import is from '@blockcore/did-resolver';
 import { Resolver } from 'did-resolver';
 
@@ -88,8 +89,6 @@ export class IdentityService {
   }
 
   async importFromDIDString(didString: string): Promise<Identity | null> {
-    debugger;
-    
     // Basic validation
     if (!didString.startsWith('did:')) {
       return null;
@@ -102,6 +101,23 @@ export class IdentityService {
       }
 
       const method = parts[1];
+
+      if (method === 'key') {
+        let didDocument;
+        let didResolution;
+
+        didResolution = DidKey.resolve(didString);
+        didDocument = didResolution.didDocument;
+        
+        return this.addIdentity({
+          id: didString,
+          method: 'key',
+          publicKey: parts[2], // Extract the public key from the DID
+          name: `Imported Key DID (${parts[2].startsWith('z6Mk') ? 'Ed25519' : 'Secp256k1'})`,
+          description: `Imported on ${new Date().toLocaleString()}`,
+          didDocument
+        });
+      }
       
       // Handle Stellar DIDs specifically
       if (method === 'stellar') {
