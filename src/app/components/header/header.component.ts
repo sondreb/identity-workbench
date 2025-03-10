@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../../services/storage.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +13,18 @@ import { StorageService } from '../../services/storage.service';
     CommonModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
   ],
   template: `
     <mat-toolbar class="header" [ngClass]="{'light-header': currentTheme === 'light'}">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="title neon-text">{{title}}</span>
+      <a [routerLink]="['/']" class="title-container">
+        <img src="/icons/icon-152x152.png" alt="Identity Workbench Logo" class="toolbar-logo">
+        <span class="title neon-text">{{title}}</span>
+      </a>
       <span class="spacer"></span>
       <button mat-icon-button aria-label="Help">
         <mat-icon>help_outline</mat-icon>
@@ -32,6 +37,20 @@ import { StorageService } from '../../services/storage.service';
     </mat-toolbar>
   `,
   styles: `
+  .title-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 16px;
+  }
+
+  .toolbar-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
     .header {
       background-color: #1a1a1a;
       box-shadow: 0 2px 10px rgba(0, 195, 255, 0.2);
@@ -45,12 +64,12 @@ import { StorageService } from '../../services/storage.service';
     }
 
     .title {
-      margin-left: 16px;
       font-weight: 300;
       letter-spacing: 0.5px;
       font-size: 1.5rem;
+      color: inherit;
     }
-    
+
     .light-header .title {
       color: #0066aa; /* Ensure title has good contrast in light mode */
     }
