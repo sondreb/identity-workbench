@@ -20,6 +20,9 @@ import { CredentialService } from '../../services/credential.service';
 import { Identity } from '../../models/identity.model';
 import { CREDENTIAL_TYPES } from '../../models/credential.model';
 import { v4 as uuidv4 } from 'uuid';
+import * as didJWT from 'did-jwt';
+import { createVerifiableCredentialJwt, Issuer } from 'did-jwt-vc';
+import { StrKey } from '@sondreb/did-stellar';
 
 @Component({
   selector: 'app-issue-credential',
@@ -184,24 +187,85 @@ export class IssueCredentialComponent implements OnInit {
     try {
       // Parse the preview JSON to create the credential
       const vcData = JSON.parse(this.previewJson);
+
+      debugger;
       
-      // In a real app, we would sign the credential here using the issuer's private key
+      // Find the issuer identity to get the private key
+      const issuerIdentity = this.identitiesWithPrivateKey.find(id => id.id === this.selectedIssuer);
       
-      const newCredential = this.credentialService.addCredential({
-        id: vcData.id,
-        type: this.selectedType,
-        issuer: this.selectedIssuer,
-        issuanceDate: new Date(),
-        expirationDate: this.expirationDate,
-        subject: this.subjectId,
-        credentialSubject: vcData.credentialSubject,
-        rawCredential: vcData,
-        name: this.credentialName,
-        description: this.credentialDescription
+      if (!issuerIdentity || !issuerIdentity.privateKey) {
+        this.showError('Issuer private key not found');
+        return;
+      }
+
+      let privateKey: any = undefined;
+      let signer: any = undefined;
+      let alg = 'ES256K';
+
+      if (issuerIdentity.method === 'stellar') {
+        privateKey = StrKey.decodeEd25519SecretSeed(issuerIdentity.privateKey);
+        signer = didJWT.EdDSASigner(privateKey);
+        alg = 'EdDSA';
+      } else {
+        throw new Error('Unsupported DID method.');
+
+        // Create a signer function using the issuer's private key
+          const signer = didJWT.ES256KSigner(privateKey);
+          alg = 'ES256K';
+          // const signer = didJWT.ES256KSigner(didJWT.hexToBytes(issuerIdentity.privateKey.replace('0x', '')));
+          
+      }
+      // Create an issuer object with the signer
+      const issuer: Issuer = {
+        did: this.selectedIssuer,
+        signer: signer,
+        alg: alg // The algorithm used for signing
+      };
+      
+      // Create the JWT payload for the verifiable credential
+      const vcPayload: any = {
+        sub: this.subjectId,
+        nbf: Math.floor(Date.now() / 1000),
+        vc: {
+          '@context': vcData['@context'],
+          type: vcData.type,
+          credentialSubject: vcData.credentialSubject
+        }
+      };
+      
+      // If an expiration date is specified, add it to the payload
+      if (this.expirationDate) {
+        vcPayload['exp'] = Math.floor(this.expirationDate.getTime() / 1000);
+      }
+      
+      // Create and sign the Verifiable Credential JWT
+      createVerifiableCredentialJwt(vcPayload, issuer).then(jwt => {
+        // Decode the JWT to get the payload (for display purposes)
+        const decoded = didJWT.decodeJWT(jwt);
+        
+        // Combine the credential data with our application-specific metadata
+        const newCredential = this.credentialService.addCredential({
+          id: vcData.id,
+          type: this.selectedType,
+          issuer: this.selectedIssuer,
+          issuanceDate: new Date(),
+          expirationDate: this.expirationDate,
+          subject: this.subjectId,
+          credentialSubject: vcData.credentialSubject,
+          rawCredential: vcData,
+          name: this.credentialName,
+          description: this.credentialDescription,
+          jwt: jwt,             // Store the JWT format
+          decodedJwt: decoded   // Store the decoded JWT payload for easy access
+        });
+        
+        this.showSuccess('Credential issued successfully');
+        this.router.navigate(['/credential', newCredential.id]);
+      }).catch(error => {
+        this.showError(`Failed to sign credential: ${error.message}`);
+        console.error('Signing error:', error);
       });
       
-      this.showSuccess('Credential issued successfully');
-      this.router.navigate(['/credential', newCredential.id]);
     } catch (error) {
       this.showError('Failed to issue credential');
       console.error('Issue credential error:', error);

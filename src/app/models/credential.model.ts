@@ -1,5 +1,7 @@
 export interface Credential {
   id: string;
+  name: string;
+  description?: string;
   type: string;
   issuer: string;
   issuanceDate: Date;
@@ -7,16 +9,16 @@ export interface Credential {
   subject: string;
   credentialSubject: any;
   rawCredential: any;
+  jwt?: string;          // The JWT format of the credential
+  decodedJwt?: any;      // The decoded JWT payload
   revoked?: boolean;
-  name?: string; // User-friendly name
-  description?: string; // User-friendly description
 }
 
 export const CREDENTIAL_TYPES = [
   { 
     id: 'VerifiableCredential', 
-    name: 'Generic Credential',
-    description: 'A basic Verifiable Credential'
+    name: 'Verifiable Credential',
+    description: 'Base credential type'
   },
   { 
     id: 'IdentityCredential', 
