@@ -73,12 +73,49 @@ export class SettingsComponent implements OnInit {
   }
 
   calculateStats(): void {
-    // This would be implemented to calculate actual storage usage
-    // For now, using mock data
+    const IDENTITIES_KEY = 'identity-workbench-identities';
+    const CREDENTIALS_KEY = 'identity-workbench-credentials';
+    
+    // Get identities and credentials from storage
+    const identities = this.storageService.get<any[]>(IDENTITIES_KEY) || [];
+    const credentials = this.storageService.get<any[]>(CREDENTIALS_KEY) || [];
+    
+    // Calculate total storage usage
+    let totalStorage = 0;
+    
+    // Add size of settings
+    const settingsStr = localStorage.getItem(this.storageService.SETTINGS_KEY);
+    if (settingsStr) {
+      totalStorage += settingsStr.length * 2; // Approximate size in bytes (UTF-16 encoding)
+    }
+    
+    // Add size of identities
+    const identitiesStr = localStorage.getItem(IDENTITIES_KEY);
+    if (identitiesStr) {
+      totalStorage += identitiesStr.length * 2;
+    }
+    
+    // Add size of credentials
+    const credentialsStr = localStorage.getItem(CREDENTIALS_KEY);
+    if (credentialsStr) {
+      totalStorage += credentialsStr.length * 2;
+    }
+    
+    // Format the total storage size
+    let formattedSize: string;
+    if (totalStorage < 1024) {
+      formattedSize = `${totalStorage} B`;
+    } else if (totalStorage < 1024 * 1024) {
+      formattedSize = `${(totalStorage / 1024).toFixed(1)} KB`;
+    } else {
+      formattedSize = `${(totalStorage / (1024 * 1024)).toFixed(1)} MB`;
+    }
+    
+    // Update the stats
     this.statCount = {
-      identities: 3,
-      credentials: 7,
-      totalStorage: '256 KB'
+      identities: identities.length,
+      credentials: credentials.length,
+      totalStorage: formattedSize
     };
   }
 
@@ -171,6 +208,7 @@ export class SettingsComponent implements OnInit {
   clearAllData(): void {
     if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
       this.storageService.clear();
+      this.calculateStats();
       this.snackBar.open('All data has been cleared', 'Close', {
         duration: 3000,
         panelClass: 'success-snackbar'
