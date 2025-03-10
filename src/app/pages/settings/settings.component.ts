@@ -170,8 +170,7 @@ export class SettingsComponent implements OnInit {
 
   clearAllData(): void {
     if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
-      // Implementation for clearing all data
-      console.log('Clear all data');
+      this.storageService.clear();
       this.snackBar.open('All data has been cleared', 'Close', {
         duration: 3000,
         panelClass: 'success-snackbar'
