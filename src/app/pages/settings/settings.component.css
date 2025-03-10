@@ -74,14 +74,7 @@
   color: var(--text-secondary);
 }
 
-.color-picker {
-  width: 50px;
-  height: 40px;
-  border: none;
-  border-radius: 4px;
-  background: none;
-  cursor: pointer;
-}
+/* Removing color picker style */
 
 .stats-grid {
   display: grid;
