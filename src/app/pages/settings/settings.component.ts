@@ -83,13 +83,89 @@ export class SettingsComponent implements OnInit {
   }
 
   importData(event: any): void {
-    // Implementation for importing data
-    console.log('Import data', event);
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const importedData = JSON.parse(e.target?.result as string);
+        
+        // Validate the imported data structure
+        if (!importedData || typeof importedData !== 'object') {
+          throw new Error('Invalid data format');
+        }
+        
+        // Import the data using storage service
+        this.storageService.importData(importedData);
+        
+        // Refresh settings and stats
+        this.loadSettings();
+        this.calculateStats();
+        
+        this.snackBar.open('Data imported successfully', 'Close', {
+          duration: 3000,
+          panelClass: 'success-snackbar'
+        });
+      } catch (error) {
+        console.error('Import error:', error);
+        this.snackBar.open('Failed to import data. Invalid format.', 'Close', {
+          duration: 3000,
+          panelClass: 'error-snackbar'
+        });
+      }
+      
+      // Reset the file input
+      event.target.value = '';
+    };
+    
+    reader.onerror = () => {
+      this.snackBar.open('Error reading file', 'Close', {
+        duration: 3000,
+        panelClass: 'error-snackbar'
+      });
+    };
+    
+    reader.readAsText(file);
   }
 
   exportAllData(): void {
-    // Implementation for exporting all data
-    console.log('Export all data');
+    try {
+      // Retrieve all app data from storage service
+      const allData = this.storageService.getAllData();
+      
+      // Convert data to JSON string
+      const jsonData = JSON.stringify(allData, null, 2);
+      
+      // Create a blob with the data
+      const blob = new Blob([jsonData], { type: 'application/json' });
+      
+      // Create a temporary URL for the blob
+      const url = window.URL.createObjectURL(blob);
+      
+      // Create a temporary anchor element and trigger download
+      const a = document.createElement('a');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      a.download = `identity-workbench-export-${timestamp}.json`;
+      a.href = url;
+      document.body.appendChild(a);
+      a.click();
+      
+      // Clean up
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      this.snackBar.open('Data exported successfully', 'Close', {
+        duration: 3000,
+        panelClass: 'success-snackbar'
+      });
+    } catch (error) {
+      console.error('Export error:', error);
+      this.snackBar.open('Failed to export data', 'Close', {
+        duration: 3000,
+        panelClass: 'error-snackbar'
+      });
+    }
   }
 
   clearAllData(): void {
