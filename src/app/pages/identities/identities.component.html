@@ -70,7 +70,7 @@
             <button mat-button color="primary" [routerLink]="['/identity', identity.id]">
               DETAILS
             </button>
-            <button mat-button color="warn" (click)="deleteIdentity(identity.id)">
+            <button mat-button class="delete-button" (click)="deleteIdentity(identity.id)">
               DELETE
             </button>
           </mat-card-actions>

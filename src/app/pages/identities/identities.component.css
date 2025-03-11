@@ -1,3 +1,18 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title-section {
+  flex: 1;
+}
+
+.actions-section {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .title-section h1 {
   margin-bottom: 5px;
@@ -90,8 +105,15 @@
   color: var(--text-secondary);
 }
 
-@media (max-width: 768px) {
+.delete-button {
+  color: var(--mat-sys-error);
+}
 
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   
   .actions-section {
     margin-top: 15px;
