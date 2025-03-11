@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -105,8 +105,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   `
 })
 export class NavigationComponent {
+  @Output() menuClosed = new EventEmitter<void>();
+  
   closeMenu() {
-    
+    this.menuClosed.emit();
   }
 
   handleImageError(event: any) {

@@ -3,7 +3,7 @@
   
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav mode="over" class="sidenav">
-      <app-navigation></app-navigation>
+      <app-navigation (menuClosed)="sidenav.close()"></app-navigation>
     </mat-sidenav>
     
     <mat-sidenav-content class="main-content">
