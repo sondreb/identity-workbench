@@ -60,14 +60,14 @@ import { PwaService } from '../../services/pwa.service';
   }
 
   .header {
-    background-color: #2b2b2b;
+    // background-color: #2b2b2b;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     z-index: 100;
     position: relative;
   }
 
   .light-header {
-    background-color: #f0f0f0;
+    // background-color: #f0f0f0;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
 

@@ -13,13 +13,12 @@
       </div>
 
       <div class="setting-item">
-        <span class="setting-label">Theme</span>
         <mat-form-field appearance="outline">
           <mat-label>Select Theme</mat-label>
           <mat-select [(ngModel)]="settings.appearance.theme" (selectionChange)="applyTheme(settings.appearance.theme)">
-            <mat-option value="dark">Dark (Neon)</mat-option>
+            <mat-option value="dark">Dark</mat-option>
             <mat-option value="light">Light</mat-option>
-            <mat-option value="system" disabled>System Default (Coming Soon)</mat-option>
+            <mat-option value="system">System Default</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
