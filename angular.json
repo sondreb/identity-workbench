@@ -25,7 +25,7 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/favicon.ico",
+              "src/favicon.png",
               "src/assets",
               "src/manifest.webmanifest",
               "src/icons"
