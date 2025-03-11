@@ -84,9 +84,3 @@
   font-size: 0.8rem;
   color: var(--text-secondary);
 }
-
-.nav-divider {
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
-  margin: 10px 0;
-}

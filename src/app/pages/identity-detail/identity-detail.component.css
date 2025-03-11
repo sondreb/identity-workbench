@@ -1,9 +1,3 @@
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
 .back-link {
   display: flex;
@@ -295,11 +289,7 @@
 }
 
 @media (max-width: 768px) {
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
+
   .header-actions {
     margin-top: 15px;
   }

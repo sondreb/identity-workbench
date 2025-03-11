@@ -20,57 +20,57 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       </div>
     </div>
     <mat-nav-list class="nav-list">
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
-        <mat-icon>dashboard</mat-icon>
+      <a mat-list-item routerLink="/dashboard" (click)="closeMenu()" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
         <span>Dashboard</span>
       </a>
-      <a mat-list-item routerLink="/identities" routerLinkActive="active-link">
-        <mat-icon>person</mat-icon>
+      <a mat-list-item routerLink="/identities" (click)="closeMenu()" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>person</mat-icon>
         <span>Identities</span>
       </a>
-      <a mat-list-item routerLink="/credentials" routerLinkActive="active-link">
-        <mat-icon>verified_user</mat-icon>
+      <a mat-list-item routerLink="/credentials" (click)="closeMenu()" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>verified_user</mat-icon>
         <span>Credentials</span>
       </a>
-      <a mat-list-item routerLink="/issue" routerLinkActive="active-link">
-        <mat-icon>add_circle</mat-icon>
+      <a mat-list-item routerLink="/issue" (click)="closeMenu()" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>add_circle</mat-icon>
         <span>Issue Credential</span>
       </a>
-      <a mat-list-item routerLink="/verify" routerLinkActive="active-link">
-        <mat-icon>check_circle</mat-icon>
+      <a mat-list-item routerLink="/verify" (click)="closeMenu()" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>check_circle</mat-icon>
         <span>Verify Credential</span>
       </a>
       <mat-divider class="nav-divider"></mat-divider>
-      <a mat-list-item routerLink="/settings" routerLinkActive="active-link">
-        <mat-icon>settings</mat-icon>
+      <a mat-list-item routerLink="/settings" (click)="closeMenu()" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>settings</mat-icon>
         <span>Settings</span>
       </a>
     </mat-nav-list>
   `,
   styles: `
-    // .nav-header {
-    //   padding: 24px 16px;
-    //   text-align: center;
-    //   background-color: rgba(0, 0, 0, 0.1);
-    // }
+    .nav-header {
+      padding: 24px 16px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
     
-    // .nav-logo-container {
-    //   display: flex;
-    //   justify-content: center;
-    //   align-items: center;
-    //   width: 80px;
-    //   height: 80px;
-    //   margin: 0 auto;
-    //   border-radius: 50%;
-    //   background-color: #f8f8f8;
-    //   overflow: hidden;
-    //   border: 1px solid #e0e0e0;
-    // }
+    .nav-logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background-color: #f8f8f8;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+    }
     
-    // .nav-logo {
-    //   width: 75px;
-    //   height: 75px;
-    // }
+    .nav-logo {
+      width: 75px;
+      height: 75px;
+    }
     
     // .nav-icon-fallback {
     //   font-size: 40px;
@@ -102,13 +102,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     //   border-left: 3px solid var(--primary-color) !important;
     // }
     
-    // .nav-divider {
-    //   margin: 8px 0;
-    //   background-color: rgba(0, 0, 0, 0.1);
-    // }
   `
 })
 export class NavigationComponent {
+  closeMenu() {
+    
+  }
+
   handleImageError(event: any) {
     // Replace the image with a material icon if it fails to load
     const img = event.target;
