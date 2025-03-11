@@ -1,5 +1,5 @@
 <div class="app-container">
-  <app-header [title]="title" (toggleSidenavEvent)="sidenav.toggle()" [showInstallButton]="showInstallButton" (installPwaEvent)="installPwa()"></app-header>
+  <app-header [title]="title" (toggleSidenavEvent)="sidenav.toggle()" [showInstallButton]="showInstallButton" (installPwaEvent)="installPwa()" (updateAppEvent)="updateApp()"></app-header>
   
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav mode="over" class="sidenav">
