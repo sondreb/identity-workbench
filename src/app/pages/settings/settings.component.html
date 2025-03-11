@@ -97,10 +97,10 @@
 
       <div class="data-actions">
         <div class="import-wrapper">
-          <button mat-stroked-button color="primary" class="import-btn">
+          <button mat-stroked-button color="primary" class="import-btn" (click)="fileInput.click()">
             <mat-icon>file_upload</mat-icon> Import Data
           </button>
-          <input type="file" accept=".json" (change)="importData($event)">
+          <input #fileInput type="file" accept=".json" (change)="importData($event)" style="display: none;">
         </div>
         <button mat-stroked-button color="primary" (click)="exportAllData()">
           <mat-icon>file_download</mat-icon> Export Data
