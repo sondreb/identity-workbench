@@ -77,7 +77,6 @@
 }
 
 .main-content {
-  padding: 20px;
   background-color: var(--background-dark);
   min-height: 100%;
   transition: background-color 0.3s ease;
