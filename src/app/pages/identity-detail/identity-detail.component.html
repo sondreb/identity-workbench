@@ -4,11 +4,11 @@
       <mat-icon>arrow_back</mat-icon> Back to Identities
     </a>
     <div class="header-actions">
-      <button mat-button color="primary" (click)="toggleEditMode()">
+      <button mat-button class="edit-button" (click)="toggleEditMode()">
         <mat-icon>{{ isEditMode ? 'close' : 'edit' }}</mat-icon>
         {{ isEditMode ? 'Cancel' : 'Edit' }}
       </button>
-      <button mat-button color="warn" (click)="deleteIdentity()">
+      <button mat-stroked-button class="delete-button" (click)="deleteIdentity()">
         <mat-icon>delete</mat-icon> Delete
       </button>
     </div>
@@ -122,7 +122,7 @@
             <div *ngIf="relatedCredentials.length === 0" class="empty-state">
               <mat-icon>verified_user</mat-icon>
               <p>No credentials associated with this identity.</p>
-              <button mat-raised-button color="primary" routerLink="/issue">
+              <button mat-flat-button color="primary" routerLink="/issue">
                 Issue New Credential
               </button>
             </div>

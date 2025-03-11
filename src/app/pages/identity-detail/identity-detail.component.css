@@ -298,6 +298,15 @@
   color: var(--error-color);
 }
 
+.edit-button {
+  color: var(--mat-sys-primary);
+}
+
+.delete-button {
+  color: var(--mat-sys-error);
+  border-color: var(--mat-sys-error);
+}
+
 @media (max-width: 768px) {
 
   .header-actions {
