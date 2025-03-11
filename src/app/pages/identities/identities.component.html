@@ -1,7 +1,7 @@
 <div class="page-container">
   <div class="page-header">
     <div class="title-section">
-      <h1 class="neon-text">Identities</h1>
+      <h1>Identities</h1>
       <p>Manage your decentralized identifiers (DIDs)</p>
     </div>
     <div class="actions-section">
@@ -57,7 +57,7 @@
             @if (identity.description) {
               <p class="identity-description">{{identity.description}}</p>
             }
-            <p class="identity-meta">Method: <span class="neon-text">{{identity.method}}</span></p>
+            <p class="identity-meta">Method: <span>{{identity.method}}</span></p>
             <p class="identity-meta">Created: {{identity.created | date:'medium'}}</p>
             @if (identity.privateKey) {
               <p class="private-key-indicator">
