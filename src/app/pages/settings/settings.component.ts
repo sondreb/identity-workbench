@@ -12,6 +12,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { StorageService } from '../../services/storage.service';
 import { AppSettings } from '../../models/types.model';
+import { IdentityService } from '../../services/identity.service';
+import { CredentialService } from '../../services/credential.service';
 
 @Component({
   selector: 'app-settings',
@@ -43,7 +45,9 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private identityService: IdentityService,
+    private credentialService: CredentialService
   ) {}
 
   ngOnInit(): void {
@@ -119,48 +123,41 @@ export class SettingsComponent implements OnInit {
     };
   }
 
-  importData(event: any): void {
-    const file = event.target.files[0];
+  importData(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = (e: ProgressEvent<FileReader>) => {
       try {
-        const importedData = JSON.parse(e.target?.result as string);
+        const content = e.target?.result as string;
+        const data = JSON.parse(content);
         
-        // Validate the imported data structure
-        if (!importedData || typeof importedData !== 'object') {
-          throw new Error('Invalid data format');
+        // Import the data
+        if (data.identities) {
+          this.storageService.set('identity-workbench-identities', data.identities);
         }
         
-        // Import the data using storage service
-        this.storageService.importData(importedData);
+        if (data.credentials) {
+          this.storageService.set('identity-workbench-credentials', data.credentials);
+        }
         
-        // Refresh settings and stats
-        this.loadSettings();
+        if (data.settings) {
+          this.storageService.set('identity-workbench-settings', data.settings);
+          this.loadSettings();
+        }
+        
+        // Refresh the services to update in-memory data
+        this.identityService.loadFromStorage();
+        this.credentialService.loadFromStorage();
+        
+        // Update stats after import
         this.calculateStats();
         
-        this.snackBar.open('Data imported successfully', 'Close', {
-          duration: 3000,
-          panelClass: 'success-snackbar'
-        });
+        this.showSuccess('Data imported successfully');
       } catch (error) {
-        console.error('Import error:', error);
-        this.snackBar.open('Failed to import data. Invalid format.', 'Close', {
-          duration: 3000,
-          panelClass: 'error-snackbar'
-        });
+        this.showError('Failed to import data: Invalid format');
       }
-      
-      // Reset the file input
-      event.target.value = '';
-    };
-    
-    reader.onerror = () => {
-      this.snackBar.open('Error reading file', 'Close', {
-        duration: 3000,
-        panelClass: 'error-snackbar'
-      });
     };
     
     reader.readAsText(file);
@@ -205,19 +202,48 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  clearAllData(): void {
-    if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+  clearAllData() {
+    if (confirm('Are you sure you want to clear all data? This cannot be undone!')) {
+      // Clear all data from storage
       this.storageService.clear();
+      
+      // Reset settings to default
+      this.resetSettings();
+      this.saveSettings();
+      
+      // Refresh the services to update in-memory state
+      this.identityService.loadFromStorage();
+      this.credentialService.loadFromStorage();
+      
+      // Update stats after clearing
       this.calculateStats();
-      this.snackBar.open('All data has been cleared', 'Close', {
-        duration: 3000,
-        panelClass: 'success-snackbar'
-      });
+      
+      this.showSuccess('All data has been cleared');
     }
   }
 
   applyTheme(theme: 'dark' | 'light' | 'system'): void {
     this.settings.appearance.theme = theme;
     this.saveSettings();
+  }
+
+  /**
+   * Shows a success message snackbar
+   */
+  private showSuccess(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: 'success-snackbar'
+    });
+  }
+
+  /**
+   * Shows an error message snackbar
+   */
+  private showError(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      panelClass: 'error-snackbar'
+    });
   }
 }

@@ -164,4 +164,12 @@ export class CredentialService {
     // For this demo, just return valid
     return { valid: true, message: 'Credential format is valid. Full cryptographic verification not implemented in demo.' };
   }
+
+  /**
+   * Reloads credentials from storage
+   * Used when data is imported/cleared in settings
+   */
+  public loadFromStorage(): void {
+    this.loadCredentials();
+  }
 }

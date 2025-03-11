@@ -20,6 +20,14 @@ export class IdentityService {
     this.loadIdentities();
   }
 
+  /**
+   * Reloads identities from storage
+   * Used when data is imported/cleared in settings
+   */
+  public loadFromStorage(): void {
+    this.loadIdentities();
+  }
+
   private loadIdentities() {
     const identities = this.storageService.get<Identity[]>(this.storageKey) || [];
     this.identitiesSubject.next(identities);
