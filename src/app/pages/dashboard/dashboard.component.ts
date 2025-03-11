@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +28,8 @@ export class DashboardComponent {
 
   constructor(
     private identityService: IdentityService,
-    private credentialService: CredentialService
+    private credentialService: CredentialService,
+    private router: Router
   ) {
     this.identityService.getAllIdentities().subscribe(ids => {
       this.identities = ids;
@@ -37,5 +38,10 @@ export class DashboardComponent {
     this.credentialService.getAllCredentials().subscribe(creds => {
       this.credentials = creds;
     });
+  }
+  
+  // Method to handle keyboard navigation
+  navigate(path: string): void {
+    this.router.navigate([path]);
   }
 }

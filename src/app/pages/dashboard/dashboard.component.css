@@ -32,7 +32,15 @@
   height: 150px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover, .stats-card:focus {
+  transform: translateY(-5px);
+  outline: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .stats-card-content {
@@ -96,8 +104,10 @@
   height: 180px;
 }
 
-.action-card:hover {
+.action-card:hover, .action-card:focus {
   transform: translateY(-5px);
+  outline: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .action-card mat-icon {

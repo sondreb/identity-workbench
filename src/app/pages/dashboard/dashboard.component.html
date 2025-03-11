@@ -5,7 +5,7 @@
   </div>
 
   <div class="stats-container">
-    <mat-card class="stats-card neon-card">
+    <mat-card class="stats-card card" routerLink="/identities" tabindex="0" (keydown.enter)="navigate('/identities')" (keydown.space)="navigate('/identities')" role="button" aria-label="Manage Identities">
       <div class="stats-card-content">
         <div class="stats-info">
           <h2>Identities</h2>
@@ -13,12 +13,9 @@
         </div>
         <mat-icon class="stats-icon">person</mat-icon>
       </div>
-      <div class="card-actions">
-        <a routerLink="/identities" mat-button color="primary">MANAGE</a>
-      </div>
     </mat-card>
 
-    <mat-card class="stats-card neon-card">
+    <mat-card class="stats-card card" routerLink="/credentials" tabindex="0" (keydown.enter)="navigate('/credentials')" (keydown.space)="navigate('/credentials')" role="button" aria-label="View Credentials">
       <div class="stats-card-content">
         <div class="stats-info">
           <h2>Credentials</h2>
@@ -26,34 +23,31 @@
         </div>
         <mat-icon class="stats-icon">verified_user</mat-icon>
       </div>
-      <div class="card-actions">
-        <a routerLink="/credentials" mat-button color="primary">VIEW ALL</a>
-      </div>
     </mat-card>
   </div>
 
   <div class="actions-container">
     <h2>Quick Actions</h2>
     <div class="actions-grid">
-      <mat-card class="action-card neon-card" routerLink="/identities">
+      <mat-card class="action-card card" routerLink="/identities" tabindex="0" (keydown.enter)="navigate('/identities')" (keydown.space)="navigate('/identities')" role="button" aria-label="Add Identity">
         <mat-icon>add_circle</mat-icon>
         <h3>Add Identity</h3>
         <p>Import or create a new decentralized identity</p>
       </mat-card>
 
-      <mat-card class="action-card neon-card" routerLink="/issue">
+      <mat-card class="action-card card" routerLink="/issue" tabindex="0" (keydown.enter)="navigate('/issue')" (keydown.space)="navigate('/issue')" role="button" aria-label="Issue Credential">
         <mat-icon>send</mat-icon>
         <h3>Issue Credential</h3>
         <p>Create and sign a new verifiable credential</p>
       </mat-card>
 
-      <mat-card class="action-card neon-card" routerLink="/verify">
+      <mat-card class="action-card card" routerLink="/verify" tabindex="0" (keydown.enter)="navigate('/verify')" (keydown.space)="navigate('/verify')" role="button" aria-label="Verify Credential">
         <mat-icon>check_circle</mat-icon>
         <h3>Verify Credential</h3>
         <p>Validate a credential issued to you</p>
       </mat-card>
 
-      <mat-card class="action-card neon-card" routerLink="/credentials">
+      <mat-card class="action-card card" routerLink="/credentials" tabindex="0" (keydown.enter)="navigate('/credentials')" (keydown.space)="navigate('/credentials')" role="button" aria-label="View Credentials">
         <mat-icon>list</mat-icon>
         <h3>View Credentials</h3>
         <p>Browse all your stored credentials</p>
