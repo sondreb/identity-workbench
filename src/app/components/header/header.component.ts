@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../../services/storage.service';
 import { RouterModule } from '@angular/router';
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatTooltipModule
   ],
   template: `
     <mat-toolbar class="header" [ngClass]="{'light-header': currentTheme === 'light'}">
