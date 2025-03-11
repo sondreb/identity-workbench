@@ -5,42 +5,42 @@ export const routes: Routes = [
   { 
     path: 'dashboard', 
     loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
-    title: 'Dashboard - Identity Workbench'
+    title: 'Dashboard'
   },
   { 
     path: 'identities', 
     loadComponent: () => import('./pages/identities/identities.component').then(m => m.IdentitiesComponent),
-    title: 'Identities - Identity Workbench'
+    title: 'Identities'
   },
   { 
     path: 'identity/:id', 
     loadComponent: () => import('./pages/identity-detail/identity-detail.component').then(m => m.IdentityDetailComponent),
-    title: 'Identity Detail - Identity Workbench'
+    title: 'Identity Detail'
   },
   { 
     path: 'credentials', 
     loadComponent: () => import('./pages/credentials/credentials.component').then(m => m.CredentialsComponent),
-    title: 'Credentials - Identity Workbench'
+    title: 'Credentials'
   },
   { 
     path: 'credential/:id', 
     loadComponent: () => import('./pages/credential-detail/credential-detail.component').then(m => m.CredentialDetailComponent),
-    title: 'Credential Detail - Identity Workbench'
+    title: 'Credential Detail'
   },
   { 
     path: 'issue', 
     loadComponent: () => import('./pages/issue-credential/issue-credential.component').then(m => m.IssueCredentialComponent),
-    title: 'Issue Credential - Identity Workbench'
+    title: 'Issue Credential'
   },
   { 
     path: 'verify', 
     loadComponent: () => import('./pages/verify-credential/verify-credential.component').then(m => m.VerifyCredentialComponent),
-    title: 'Verify Credential - Identity Workbench'
+    title: 'Verify Credential'
   },
   { 
     path: 'settings', 
     loadComponent: () => import('./pages/settings/settings.component').then(m => m.SettingsComponent),
-    title: 'Settings - Identity Workbench'
+    title: 'Settings'
   },
   { path: '**', redirectTo: '/dashboard' }
 ];
