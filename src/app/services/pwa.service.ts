@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { BehaviorSubject, filter } from 'rxjs';
 
@@ -6,8 +6,8 @@ import { BehaviorSubject, filter } from 'rxjs';
   providedIn: 'root'
 })
 export class PwaService {
-  private updateAvailable = new BehaviorSubject<boolean>(false);
-  updateAvailable$ = this.updateAvailable.asObservable();
+  // Replace BehaviorSubject with signal
+  updateAvailable = signal<boolean>(false);
   
   private installPrompt: any;
   private installPromptEvent = new BehaviorSubject<boolean>(false);
@@ -33,7 +33,7 @@ export class PwaService {
         .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
         .subscribe(event => {
           console.log('New version available', event);
-          this.updateAvailable.next(true);
+          this.updateAvailable.set(true);
         });
     }
   }
@@ -47,7 +47,7 @@ export class PwaService {
       .then(hasUpdate => {
         console.log('Manual check for update result:', hasUpdate);
         if (hasUpdate) {
-          this.updateAvailable.next(true);
+          this.updateAvailable.set(true);
         }
         return hasUpdate;
       })
@@ -65,7 +65,7 @@ export class PwaService {
     return this.swUpdate.activateUpdate().then(success => {
       if (success) {
         console.log('Update activated successfully');
-        this.updateAvailable.next(false);
+        this.updateAvailable.set(false);
         window.location.reload();
       }
       return success;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,9 +34,13 @@ export class AppComponent implements OnInit {
   showInstallButton = false;
   title = 'Identity Workbench';
   currentTheme = 'dark';
-  updateAvailable = false;
 
-  constructor(private storageService: StorageService, private pwaService: PwaService) {}
+  constructor(private storageService: StorageService, public pwaService: PwaService) {
+    // Use effect to monitor update availability changes
+    effect(() => {
+      console.log('Update available status changed:', this.pwaService.updateAvailable());
+    });
+  }
 
   ngOnInit() {
     // Listen for theme changes
@@ -50,12 +54,6 @@ export class AppComponent implements OnInit {
     // Subscribe to install prompt events
     this.pwaService.installPromptEvent$.subscribe(canInstall => {
       this.showInstallButton = canInstall;
-    });
-    
-    // Subscribe to update availability
-    this.pwaService.updateAvailable$.subscribe(hasUpdate => {
-      console.log('Update available status changed:', hasUpdate);
-      this.updateAvailable = hasUpdate;
     });
     
     // Check for updates on init

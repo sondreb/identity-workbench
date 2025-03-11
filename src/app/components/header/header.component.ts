@@ -6,6 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../../services/storage.service';
 import { RouterModule } from '@angular/router';
+import { PwaService } from '../../services/pwa.service';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +32,7 @@ import { RouterModule } from '@angular/router';
       <button mat-icon-button aria-label="Help">
         <mat-icon>help_outline</mat-icon>
       </button>
-      @if (updateAvailable) {
+      @if (pwaService.updateAvailable()) {
         <button mat-icon-button class="update-button" (click)="updateApp()" aria-label="Update application" matTooltip="Update available">
           <mat-icon>system_update</mat-icon>
         </button>
@@ -108,13 +109,15 @@ import { RouterModule } from '@angular/router';
 export class HeaderComponent {
   @Input() title = 'Identity Workbench';
   @Input() showInstallButton = false;
-  @Input() updateAvailable = false;
   @Output() toggleSidenavEvent = new EventEmitter<void>();
   @Output() installPwaEvent = new EventEmitter<void>();
   @Output() updateAppEvent = new EventEmitter<void>();
   currentTheme = 'dark';
 
-  constructor(private storageService: StorageService) {
+  constructor(
+    private storageService: StorageService,
+    public pwaService: PwaService  // Make it public to access in the template
+  ) {
     this.storageService.themeChange$.subscribe(theme => {
       this.currentTheme = theme;
     });
