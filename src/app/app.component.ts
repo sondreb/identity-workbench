@@ -31,7 +31,6 @@ import { PwaService } from './services/pwa.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  deferredPrompt: any;
   showInstallButton = false;
   title = 'Identity Workbench';
   currentTheme = 'dark';
@@ -48,16 +47,6 @@ export class AppComponent implements OnInit {
     // Apply initial theme
     this.applyTheme(this.storageService.getTheme());
     
-    // Check for PWA install prompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent Chrome 67+ from automatically showing the prompt
-      e.preventDefault();
-      // Store the event for later use
-      this.deferredPrompt = e;
-      // Show install button
-      this.showInstallButton = true;
-    });
-
     // Subscribe to install prompt events
     this.pwaService.installPromptEvent$.subscribe(canInstall => {
       this.showInstallButton = canInstall;
@@ -65,24 +54,15 @@ export class AppComponent implements OnInit {
     
     // Subscribe to update availability
     this.pwaService.updateAvailable$.subscribe(hasUpdate => {
+      console.log('Update available status changed:', hasUpdate);
       this.updateAvailable = hasUpdate;
     });
     
     // Check for updates on init
-    this.pwaService.checkForUpdates();
+    this.pwaService.checkForUpdates().then(hasUpdate => {
+      console.log('Initial update check result:', hasUpdate);
+    });
   }
-
-  // async installPwa() {
-  //   if (!this.deferredPrompt) return;
-    
-  //   this.deferredPrompt.prompt();
-  //   const { outcome } = await this.deferredPrompt.userChoice;
-    
-  //   if (outcome === 'accepted') {
-  //     this.showInstallButton = false;
-  //   }
-  //   this.deferredPrompt = null;
-  // }
   
   applyTheme(theme: string) {
     this.currentTheme = theme;

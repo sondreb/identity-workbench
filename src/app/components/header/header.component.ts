@@ -30,12 +30,12 @@ import { RouterModule } from '@angular/router';
         <mat-icon>help_outline</mat-icon>
       </button>
       @if (updateAvailable) {
-        <button mat-icon-button class="update-button" (click)="updateApp()" aria-label="Update application">
+        <button mat-icon-button class="update-button" (click)="updateApp()" aria-label="Update application" matTooltip="Update available">
           <mat-icon>system_update</mat-icon>
         </button>
       }
       @if (showInstallButton) {
-        <button mat-icon-button class="install-button" (click)="installPwa()">
+        <button mat-icon-button class="install-button" (click)="installPwa()" matTooltip="Install app">
           <mat-icon>get_app</mat-icon>
         </button>
       }
@@ -129,6 +129,5 @@ export class HeaderComponent {
   
   updateApp() {
     this.updateAppEvent.emit();
-    window.location.reload();
   }
 }

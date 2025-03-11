@@ -31,9 +31,9 @@ export class PwaService {
       // Subscribe to version updates
       this.swUpdate.versionUpdates
         .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
-        .subscribe(() => {
+        .subscribe(event => {
+          console.log('New version available', event);
           this.updateAvailable.next(true);
-          console.log('New version available');
         });
     }
   }
@@ -43,12 +43,18 @@ export class PwaService {
       return Promise.resolve(false);
     }
     
-    return this.swUpdate.checkForUpdate().then(hasUpdate => {
-      if (hasUpdate) {
-        this.updateAvailable.next(true);
-      }
-      return hasUpdate;
-    });
+    return this.swUpdate.checkForUpdate()
+      .then(hasUpdate => {
+        console.log('Manual check for update result:', hasUpdate);
+        if (hasUpdate) {
+          this.updateAvailable.next(true);
+        }
+        return hasUpdate;
+      })
+      .catch(err => {
+        console.error('Failed to check for updates:', err);
+        return false;
+      });
   }
 
   updateApp(): Promise<boolean> {
@@ -58,9 +64,14 @@ export class PwaService {
     
     return this.swUpdate.activateUpdate().then(success => {
       if (success) {
+        console.log('Update activated successfully');
+        this.updateAvailable.next(false);
         window.location.reload();
       }
       return success;
+    }).catch(err => {
+      console.error('Failed to activate update:', err);
+      return false;
     });
   }
 
