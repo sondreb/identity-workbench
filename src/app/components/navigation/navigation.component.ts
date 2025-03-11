@@ -48,64 +48,64 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     </mat-nav-list>
   `,
   styles: `
-    .nav-header {
-      padding: 24px 16px;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.1);
-    }
+    // .nav-header {
+    //   padding: 24px 16px;
+    //   text-align: center;
+    //   background-color: rgba(0, 0, 0, 0.1);
+    // }
     
-    .nav-logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 80px;
-      height: 80px;
-      margin: 0 auto;
-      border-radius: 50%;
-      background-color: #f8f8f8;
-      overflow: hidden;
-      border: 1px solid #e0e0e0;
-    }
+    // .nav-logo-container {
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   width: 80px;
+    //   height: 80px;
+    //   margin: 0 auto;
+    //   border-radius: 50%;
+    //   background-color: #f8f8f8;
+    //   overflow: hidden;
+    //   border: 1px solid #e0e0e0;
+    // }
     
-    .nav-logo {
-      width: 75px;
-      height: 75px;
-    }
+    // .nav-logo {
+    //   width: 75px;
+    //   height: 75px;
+    // }
     
-    .nav-icon-fallback {
-      font-size: 40px;
-      color: var(--primary-color);
-    }
+    // .nav-icon-fallback {
+    //   font-size: 40px;
+    //   color: var(--primary-color);
+    // }
     
-    .nav-list {
-      padding-top: 0;
-    }
+    // .nav-list {
+    //   padding-top: 0;
+    // }
     
-    .nav-list a {
-      color: var(--text-color);
-      margin: 5px 0;
-      transition: all 0.3s ease;
-      border-left: 3px solid transparent;
-    }
+    // .nav-list a {
+    //   color: var(--text-color);
+    //   margin: 5px 0;
+    //   transition: all 0.3s ease;
+    //   border-left: 3px solid transparent;
+    // }
     
-    .nav-list a:hover {
-      background-color: rgba(0, 120, 212, 0.05);
-    }
+    // .nav-list a:hover {
+    //   background-color: rgba(0, 120, 212, 0.05);
+    // }
     
-    .nav-list a mat-icon {
-      color: var(--primary-color);
-      margin-right: 16px;
-    }
+    // .nav-list a mat-icon {
+    //   color: var(--primary-color);
+    //   margin-right: 16px;
+    // }
     
-    .active-link {
-      background-color: rgba(0, 120, 212, 0.1) !important;
-      border-left: 3px solid var(--primary-color) !important;
-    }
+    // .active-link {
+    //   background-color: rgba(0, 120, 212, 0.1) !important;
+    //   border-left: 3px solid var(--primary-color) !important;
+    // }
     
-    .nav-divider {
-      margin: 8px 0;
-      background-color: rgba(0, 0, 0, 0.1);
-    }
+    // .nav-divider {
+    //   margin: 8px 0;
+    //   background-color: rgba(0, 0, 0, 0.1);
+    // }
   `
 })
 export class NavigationComponent {

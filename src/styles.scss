@@ -54,10 +54,12 @@ a:hover {
 
 ::-webkit-scrollbar-track {
   background: var(--mat-sys-surface);
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--mat-sys-outline);
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
