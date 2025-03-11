@@ -19,12 +19,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white;
+  /* color: white; */
   font-size: 3rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.install-button {
+/* .install-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -41,17 +41,17 @@
   display: flex;
   align-items: center;
   gap: 8px;
-}
+} */
 
-.light-theme .install-button {
+/* .light-theme .install-button {
   background-color: var(--primary-color);
   color: white;
-}
+} */
 
-.install-button:hover {
+/* .install-button:hover {
   background-color: var(--primary-hover);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
+} */
 
 .app-container {
   display: flex;
@@ -68,8 +68,8 @@
 
 .sidenav {
   width: 250px;
-  background-color: var(--background-light);
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  /* background-color: var(--background-light); */
+  /* border-right: 1px solid rgba(0, 0, 0, 0.12); */
 }
 
 .light-theme .sidenav {
