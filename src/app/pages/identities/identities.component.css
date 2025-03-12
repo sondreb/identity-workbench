@@ -105,10 +105,6 @@
   color: var(--text-secondary);
 }
 
-.delete-button {
-  color: var(--mat-sys-error);
-}
-
 @media (max-width: 768px) {
   .page-header {
     flex-direction: column;

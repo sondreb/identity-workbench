@@ -112,3 +112,24 @@ a:hover {
   max-width: 800px;
   margin: 0 auto;
 }
+
+button.primary {
+  color: var(--mat-sys-primary) !important;
+}
+
+button.warn {
+  color: var(--mat-sys-error) !important;
+}
+
+mat-card-actions {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.action-left {
+  margin-right: auto;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
