@@ -29,9 +29,9 @@ import { PwaService } from '../../services/pwa.service';
         <span class="title">{{title}}</span>
       </a>
       <span class="spacer"></span>
-      <button mat-icon-button aria-label="Help">
+      <a href="https://youtu.be/id7CLFQ2ChU" mat-icon-button aria-label="Help">
         <mat-icon>help_outline</mat-icon>
-      </button>
+      </a>
       @if (pwaService.updateAvailable()) {
         <button mat-icon-button class="update-button" (click)="updateApp()" aria-label="Update application" matTooltip="Update available">
           <mat-icon>system_update</mat-icon>
