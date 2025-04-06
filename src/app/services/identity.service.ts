@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { DidStellar } from '@sondreb/did-stellar';
 import { DidKey } from '@sondreb/did-key';
 import is from '@blockcore/did-resolver';
+import nostr from '@blockcore/nostr-did-resolver';
 import { Resolver } from 'did-resolver';
 
 @Injectable({
@@ -134,7 +135,7 @@ export class IdentityService {
         
         return this.addIdentity({
           id: didString,
-          method: 'stellar',
+          method: method,
           publicKey: parts[2], // Extract the public key from the DID
           name: `Imported Stellar DID`,
           description: `Imported on ${new Date().toLocaleString()}`,
@@ -149,9 +150,24 @@ export class IdentityService {
         
         return this.addIdentity({
           id: didString,
-          method: 'is',
+          method: method,
           publicKey: parts[2], // Extract the public key from the DID
           name: `Imported FreeID`,
+          description: `Imported on ${new Date().toLocaleString()}`,
+          didDocument
+        });
+      }
+
+      if (method === 'nostr') {
+        const resolver = new Resolver(nostr.getResolver());
+        const didResolution = await resolver.resolve(didString);
+        const didDocument = didResolution.didDocument
+        
+        return this.addIdentity({
+          id: didString,
+          method: method,
+          publicKey: parts[2], // Extract the public key from the DID
+          name: `Imported Nostr DID`,
           description: `Imported on ${new Date().toLocaleString()}`,
           didDocument
         });

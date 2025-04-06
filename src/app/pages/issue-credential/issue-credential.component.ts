@@ -188,8 +188,6 @@ export class IssueCredentialComponent implements OnInit {
       // Parse the preview JSON to create the credential
       const vcData = JSON.parse(this.previewJson);
 
-      debugger;
-      
       // Find the issuer identity to get the private key
       const issuerIdentity = this.identitiesWithPrivateKey.find(id => id.id === this.selectedIssuer);
       

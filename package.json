@@ -24,6 +24,7 @@
     "@angular/service-worker": "^19.2.1",
     "@blockcore/did-resolver": "^0.0.4",
     "@blockcore/identity": "^0.0.12",
+    "@blockcore/nostr-did-resolver": "^0.0.2",
     "@sondreb/did-key": "^0.0.1",
     "@sondreb/did-stellar": "^0.0.5",
     "did-jwt": "^8.0.8",
