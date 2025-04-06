@@ -47,7 +47,8 @@
         <mat-card class="identity-card neon-card">
           <mat-card-header>
             <div mat-card-avatar class="identity-avatar">
-              <mat-icon>{{getMethodLogo(identity.method)}}</mat-icon>
+              <img *ngIf="identity.picture" [src]="identity.picture" alt="Profile picture" class="profile-picture">
+              <mat-icon *ngIf="!identity.picture">{{getMethodLogo(identity.method)}}</mat-icon>
             </div>
             <mat-card-title>{{identity.name}}</mat-card-title>
             <mat-card-subtitle>{{truncateId(identity.id)}}</mat-card-subtitle>

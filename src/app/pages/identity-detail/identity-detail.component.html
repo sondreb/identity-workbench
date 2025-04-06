@@ -17,7 +17,8 @@
   <div class="identity-container">
     <div class="identity-header">
       <div class="identity-icon">
-        <mat-icon [ngClass]="'method-' + identity.method">
+        <img *ngIf="identity.picture" [src]="identity.picture" alt="Profile picture" class="profile-picture">
+        <mat-icon *ngIf="!identity.picture" [ngClass]="'method-' + identity.method">
           {{ identity.method === 'key' ? 'vpn_key' : 
              identity.method === 'web' ? 'language' : 
              identity.method === 'stellar' ? 'star' : 'person' }}

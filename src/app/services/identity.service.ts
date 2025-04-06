@@ -167,6 +167,7 @@ export class IdentityService {
         let name = `Imported Nostr DID`;
         let description = `Imported on ${new Date().toLocaleString()}`;
         let profile = didResolution.didDocumentMetadata['profile'];
+        let picture = undefined;
 
         console.log('didResolution', didResolution);
 
@@ -174,6 +175,7 @@ export class IdentityService {
           console.log('PROFILE FOUND!!');
           name = profile.display_name || profile.name|| name;
           description = profile.about || description;
+          picture = profile.picture || undefined;
         }
         
         return this.addIdentity({
@@ -182,7 +184,8 @@ export class IdentityService {
           publicKey: parts[2], // Extract the public key from the DID
           name,
           description,
-          didDocument
+          didDocument,
+          picture
         });
       }
       
