@@ -148,6 +148,16 @@ export class IdentityDetailComponent implements OnInit {
     }
   }
 
+  getLinkedDomains(): any[] {
+    if (!this.identity?.didDocument?.service) {
+      return [];
+    }
+    
+    return this.identity.didDocument.service.filter(
+      (service: { type: string }) => service.type === 'LinkedDomains'
+    );
+  }
+
   private showSuccess(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,

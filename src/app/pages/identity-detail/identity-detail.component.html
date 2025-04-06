@@ -81,6 +81,15 @@
               </div>
             </div>
 
+            <div class="detail-section" *ngIf="identity.didDocument?.service && getLinkedDomains().length > 0">
+              <h3>Domains</h3>
+              <div class="domain-list">
+                <span *ngFor="let domain of getLinkedDomains()" class="domain-chip">
+                  <a [href]="domain.serviceEndpoint" target="_blank">{{ domain.serviceEndpoint }}</a>
+                </span>
+              </div>
+            </div>
+
             <div class="detail-section">
               <h3>Created</h3>
               <p>{{ identity.created | date:'medium' }}</p>
