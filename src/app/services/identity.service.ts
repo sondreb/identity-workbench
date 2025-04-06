@@ -57,6 +57,7 @@ export class IdentityService {
       privateKey: identity.privateKey,
       name: identity.name || `Identity ${this.identitiesSubject.value.length + 1}`,
       description: identity.description,
+      picture: identity.picture,
       created: now,
       updated: now,
       didDocument: identity.didDocument

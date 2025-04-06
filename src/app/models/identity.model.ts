@@ -5,6 +5,7 @@ export interface Identity {
   privateKey?: string; // Optional, only if imported
   name?: string; // User-assigned name
   description?: string; // User-assigned description
+  picture?: string; // Optional, profile picture (base64 or URL)
   created: Date;
   updated: Date;
   didDocument?: any; // The full DID document, if available
