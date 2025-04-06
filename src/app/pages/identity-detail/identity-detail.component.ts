@@ -158,6 +158,28 @@ export class IdentityDetailComponent implements OnInit {
     );
   }
 
+  getOtherServices(): any[] {
+    if (!this.identity?.didDocument?.service) {
+      return [];
+    }
+    
+    return this.identity.didDocument.service.filter(
+      (service: { type: string }) => service.type !== 'LinkedDomains'
+    );
+  }
+
+  getServiceProperties(service: any): string[] {
+    // Get all property names except 'id'
+    return Object.keys(service).filter(key => key !== 'id' && key !== 'type');
+  }
+
+  getOtherServiceProperties(service: any): string[] {
+    // Get all property names except 'id', 'type', and 'serviceEndpoint'
+    return Object.keys(service).filter(key => 
+      key !== 'id' && key !== 'type' && key !== 'serviceEndpoint'
+    );
+  }
+
   private showSuccess(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,

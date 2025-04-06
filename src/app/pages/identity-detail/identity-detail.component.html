@@ -90,6 +90,20 @@
               </div>
             </div>
 
+            <div class="detail-section" *ngIf="identity.didDocument?.service && getOtherServices().length > 0">
+              <h3>Services</h3>
+              <div class="service-list">
+                <div *ngFor="let service of getOtherServices()" class="service-entry">
+                  <span class="service-type">{{ service.type }}:</span>
+                  <span class="service-value" *ngIf="service.serviceEndpoint">{{ service.serviceEndpoint }}</span>
+                  <div *ngFor="let prop of getOtherServiceProperties(service)" class="service-property">
+                    <span class="property-name">{{ prop }}:</span>
+                    <span class="property-value">{{ service[prop] }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="detail-section">
               <h3>Created</h3>
               <p>{{ identity.created | date:'medium' }}</p>
