@@ -49,6 +49,8 @@ import { PwaService } from '../../services/pwa.service';
     display: flex;
     align-items: center;
     text-decoration: none;
+    border: 0;
+    color: var(--text-color);
     margin-left: 16px;
   }
 
