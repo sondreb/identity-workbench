@@ -161,14 +161,26 @@ export class IdentityService {
       if (method === 'nostr') {
         const resolver = new Resolver(nostr.getResolver());
         const didResolution = await resolver.resolve(didString);
-        const didDocument = didResolution.didDocument
+        const didDocument = didResolution.didDocument;
+
+        let name = `Imported Nostr DID`;
+        let description = `Imported on ${new Date().toLocaleString()}`;
+        let profile = didResolution.didDocumentMetadata['profile'];
+
+        console.log('didResolution', didResolution);
+
+        if (profile) {
+          console.log('PROFILE FOUND!!');
+          name = profile.display_name || profile.name|| name;
+          description = profile.about || description;
+        }
         
         return this.addIdentity({
           id: didString,
           method: method,
           publicKey: parts[2], // Extract the public key from the DID
-          name: `Imported Nostr DID`,
-          description: `Imported on ${new Date().toLocaleString()}`,
+          name,
+          description,
           didDocument
         });
       }
